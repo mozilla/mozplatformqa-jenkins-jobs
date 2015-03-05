@@ -15,7 +15,7 @@
       <spec>H/3 * * * *</spec>
       <fileInfo>
         <org.jenkinsci.plugins.fstrigger.triggers.FileNameTriggerInfo>
-          <filePathPattern>/Users/spolk/jenkins/workspace/firefox-beta-mac/releases/firefox-latest-beta.en-US.mac.dmg</filePathPattern>
+          <filePathPattern>/var/lib/jenkins/jobs/firefox-beta-mac/workspace/releases/firefox-latest-beta.en-US.mac.dmg</filePathPattern>
           <strategy>LATEST</strategy>
           <inspectingContentFile>false</inspectingContentFile>
           <doNotCheckLastModificationDate>false</doNotCheckLastModificationDate>
