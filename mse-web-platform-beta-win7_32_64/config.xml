@@ -29,7 +29,7 @@
   </scm>
   <assignedNode>win64 &amp;&amp; mse &amp;&amp; win7</assignedNode>
   <canRoam>false</canRoam>
-  <disabled>true</disabled>
+  <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
@@ -51,7 +51,7 @@
       <spec>H * * * *</spec>
       <entries>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
-          <url>http://192.168.0.7:8080/job/firefox-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.zip</url>
+          <url>http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.zip</url>
           <proxyActivated>false</proxyActivated>
           <checkStatus>false</checkStatus>
           <statusCode>200</statusCode>
@@ -62,7 +62,7 @@
           <contentTypes/>
         </org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
-          <url>http://192.168.0.7:8080/job/tests-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.tests.zip</url>
+          <url>http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/tests-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.tests.zip</url>
           <proxyActivated>false</proxyActivated>
           <checkStatus>false</checkStatus>
           <statusCode>200</statusCode>
@@ -84,7 +84,7 @@
       <clear>true</clear>
       <systemSitePackages>false</systemSitePackages>
       <nature>shell</nature>
-      <command>c:\mozilla-build\msys\bin\bash -xe ./run-media-source-web-platform.sh http://192.168.0.7:8080/job/firefox-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.zip http://192.168.0.7:8080/job/tests-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.tests.zip win32
+      <command>c:\mozilla-build\msys\bin\bash -xe ./run-media-source-web-platform.sh http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.zip http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/tests-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.tests.zip win32
 </command>
       <ignoreExitCode>false</ignoreExitCode>
     </jenkins.plugins.shiningpanda.builders.VirtualenvBuilder>

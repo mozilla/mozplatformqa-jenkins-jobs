@@ -3,7 +3,7 @@
   <actions/>
   <description></description>
   <logRotator class="hudson.tasks.LogRotator">
-    <daysToKeep>-1</daysToKeep>
+    <daysToKeep>10</daysToKeep>
     <numToKeep>30</numToKeep>
     <artifactDaysToKeep>-1</artifactDaysToKeep>
     <artifactNumToKeep>-1</artifactNumToKeep>
@@ -45,7 +45,9 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>bash -x ./maintain_firefox_cache.sh linux64 aurora
+      <command>#!/bin/sh -x
+
+bash -x ./maintain_firefox_cache.sh linux64 aurora
 </command>
     </hudson.tasks.Shell>
   </builders>

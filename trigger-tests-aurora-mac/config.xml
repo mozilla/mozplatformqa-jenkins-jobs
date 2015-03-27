@@ -21,7 +21,7 @@
       <spec>H/3 * * * *</spec>
       <fileInfo>
         <org.jenkinsci.plugins.fstrigger.triggers.FileNameTriggerInfo>
-          <filePathPattern>/var/lib/jenkins/jobs/tests-aurora-mac/workspace/releases/firefox-latest-aurora.en-US.mac.tests.zip</filePathPattern>
+          <filePathPattern>/var/lib/jenkins/jenkins/jobs/tests-aurora-mac/workspace/releases/firefox-latest-aurora.en-US.mac.tests.zip</filePathPattern>
           <strategy>LATEST</strategy>
           <inspectingContentFile>false</inspectingContentFile>
           <doNotCheckLastModificationDate>false</doNotCheckLastModificationDate>
