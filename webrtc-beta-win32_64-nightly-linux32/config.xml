@@ -10,9 +10,9 @@
   </logRotator>
   <keepDependencies>false</keepDependencies>
   <properties/>
-  <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.3">
+  <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.4">
     <scms>
-      <hudson.plugins.git.GitSCM plugin="git@2.3">
+      <hudson.plugins.git.GitSCM plugin="git@2.3.5">
         <configVersion>2</configVersion>
         <userRemoteConfigs>
           <hudson.plugins.git.UserRemoteConfig>
@@ -33,7 +33,7 @@
           </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
         </extensions>
       </hudson.plugins.git.GitSCM>
-      <hudson.plugins.git.GitSCM plugin="git@2.3">
+      <hudson.plugins.git.GitSCM plugin="git@2.3.5">
         <configVersion>2</configVersion>
         <userRemoteConfigs>
           <hudson.plugins.git.UserRemoteConfig>
@@ -123,7 +123,7 @@ ARCH2=i686
 curl http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-beta-win32/ws/releases/$PACKAGE1 &gt; $PACKAGE1
 curl http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-beta-win32/ws/releases/$BUILD_FILE1 &gt; $BUILD_FILE1
 
-if [ "$PACKAGE1" != "$PACKAGE2" ] ; then
+if [ &quot;$PACKAGE1&quot; != &quot;$PACKAGE2&quot; ] ; then
     curl http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-nightly-linux32/ws/releases/$PACKAGE2 &gt; $PACKAGE2
     curl http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-nightly-linux32/ws/releases/$BUILD_FILE2 &gt; $BUILD_FILE2
 fi
@@ -133,7 +133,7 @@ python `pwd`/mozplatformqa-jenkins/jenkinsherder.py --steeplechase `pwd`/steeple
     </hudson.tasks.Shell>
   </builders>
   <publishers>
-    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.39">
+    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.40">
       <recipientList>$DEFAULT_RECIPIENTS</recipientList>
       <configuredTriggers>
         <hudson.plugins.emailext.plugins.trigger.FailureTrigger>

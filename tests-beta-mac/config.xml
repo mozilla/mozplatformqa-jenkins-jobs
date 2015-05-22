@@ -34,7 +34,7 @@
   <triggers>
     <jenkins.triggers.ReverseBuildTrigger>
       <spec></spec>
-      <upstreamProjects>firefox-beta-mac, </upstreamProjects>
+      <upstreamProjects>firefox-beta-mac</upstreamProjects>
       <threshold>
         <name>SUCCESS</name>
         <ordinal>0</ordinal>

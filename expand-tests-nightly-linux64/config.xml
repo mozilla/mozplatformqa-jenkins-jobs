@@ -30,6 +30,7 @@
       <command>export DEST=/home/mozilla/firefoxes/nightly/linux64
 mkdir -p $DEST
 cd $DEST
+unzip -t $WORKSPACE/firefox-latest-nightly.en-US.linux-x86_64.tests.zip
 rm -rf tests
 mkdir -p tests
 cd tests
