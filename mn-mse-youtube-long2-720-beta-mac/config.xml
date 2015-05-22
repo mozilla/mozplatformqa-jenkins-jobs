@@ -51,7 +51,7 @@
 # ls &quot;$MOZHARNESSHOME&quot; fails if the variable is set via Jenkin&apos;s node configuration
 export MOZHARNESSHOME=/Users/mozilla/tools/mozharness
 export MINIDUMP_STACKWALK=/Users/mozilla/tools/minidump_stackwalk
-python ./run_media_tests.py --installer-url http://192.168.0.7/job/firefox-beta-mac/ws/releases/firefox-latest-beta.en-US.mac.dmg --symbols-url http://192.168.0.7/job/symbols-beta-mac/ws/releases/firefox-latest-beta.en-US.mac.crashreporter-symbols.zip --test-timeout 44000 --media-urls ./firefox_media_tests/urls/youtube/long2-720.ini
+python ./run_media_tests.py --installer-url http://192.168.0.7:8080/job/firefox-beta-mac/ws/releases/firefox-latest-beta.en-US.mac.dmg --symbols-url http://192.168.0.7:8080/job/symbols-beta-mac/ws/releases/firefox-latest-beta.en-US.mac.crashreporter-symbols.zip --test-timeout 44000 --media-urls ./firefox_media_tests/urls/youtube/long2-720.ini
 if [ ! -d ./logs ]; then exit 1; fi
 if [ &quot;$(grep --count &apos;Marionette: success&apos; logs/log_info.log)&quot; -eq &quot;0&quot; ]; then exit 1; fi</command>
       <ignoreExitCode>false</ignoreExitCode>

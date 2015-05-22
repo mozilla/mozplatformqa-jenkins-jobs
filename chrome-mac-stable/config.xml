@@ -25,7 +25,7 @@
       <spec>H * * * *</spec>
       <entries>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
-          <url>http://192.168.0.7/job/chrome-urls/ws/chrome_urls.txt</url>
+          <url>http://192.168.0.7:8080/job/chrome-urls/ws/chrome_urls.txt</url>
           <proxyActivated>false</proxyActivated>
           <checkStatus>false</checkStatus>
           <statusCode>200</statusCode>
@@ -43,7 +43,7 @@
   <builders>
     <hudson.tasks.Shell>
       <command>#!/bin/bash -x
-URL=`wget -O - http://192.168.0.7/job/chrome-urls/ws/chrome_urls.txt | grep mac | grep stable | cut -d &apos;,&apos; -f 4`
+URL=`wget -O - http://192.168.0.7:8080/job/chrome-urls/ws/chrome_urls.txt | grep mac | grep stable | cut -d &apos;,&apos; -f 4`
 wget -q -O chrome_mac_stable.dmg $URL</command>
     </hudson.tasks.Shell>
   </builders>

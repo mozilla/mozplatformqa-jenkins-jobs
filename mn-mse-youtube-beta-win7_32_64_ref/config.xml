@@ -50,7 +50,7 @@
       <clear>true</clear>
       <systemSitePackages>false</systemSitePackages>
       <nature>shell</nature>
-      <command>c:\mozilla-build\msys\bin\bash -xe ./run-youtube-tests.sh http://192.168.0.7/job/firefox-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.zip win32
+      <command>c:\mozilla-build\msys\bin\bash -xe ./run-youtube-tests.sh http://192.168.0.7:8080/job/firefox-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.zip win32
 
   
 </command>

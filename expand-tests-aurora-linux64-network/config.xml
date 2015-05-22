@@ -40,7 +40,7 @@
       <spec></spec>
       <entries>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
-          <url>http://192.168.0.7/view/tests/job/tests-aurora-linux64/ws/releases/firefox-latest-aurora.en-US.linux-x86_64.tests.zip</url>
+          <url>http://192.168.0.7:8080/view/tests/job/tests-aurora-linux64/ws/releases/firefox-latest-aurora.en-US.linux-x86_64.tests.zip</url>
           <proxyActivated>false</proxyActivated>
           <checkStatus>false</checkStatus>
           <statusCode>200</statusCode>
@@ -64,7 +64,7 @@ rm -rf tests
 mkdir -p tests
 cd tests
 
-curl http://192.168.0.7/view/tests/job/tests-aurora-linux64/ws/releases/firefox-latest-aurora.en-US.linux-x86_64.tests.zip &gt; firefox-latest-aurora.en-US.linux-x86_64.tests.zip
+curl http://192.168.0.7:8080/view/tests/job/tests-aurora-linux64/ws/releases/firefox-latest-aurora.en-US.linux-x86_64.tests.zip &gt; firefox-latest-aurora.en-US.linux-x86_64.tests.zip
 
 unzip -u -o firefox-latest-aurora.en-US.linux-x86_64.tests.zip &apos;steeplechase/*&apos; &apos;mochitest/tests/dom/media/tests/*&apos;
 

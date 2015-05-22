@@ -45,7 +45,7 @@
       <spec>H * * * *</spec>
       <entries>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
-          <url>http://192.168.0.7/job/nspr_mac/lastSuccessfulBuild/artifact/nspr-mac.tar.gz</url>
+          <url>http://192.168.0.7:8080/job/nspr_mac/lastSuccessfulBuild/artifact/nspr-mac.tar.gz</url>
           <proxyActivated>false</proxyActivated>
           <checkStatus>false</checkStatus>
           <statusCode>200</statusCode>
@@ -64,7 +64,7 @@
     <hudson.tasks.Shell>
       <command>#!/bin/sh -x
 
-curl http://192.168.0.7/job/nspr_mac/lastSuccessfulBuild/artifact/nspr-mac.tar.gz &gt; nspr-mac.tar.gz
+curl http://192.168.0.7:8080/job/nspr_mac/lastSuccessfulBuild/artifact/nspr-mac.tar.gz &gt; nspr-mac.tar.gz
 tar xvfz nspr-mac.tar.gz
 mkdir -p Negatus-mac
 cp nspr-mac/lib/*.dylib Negatus-mac

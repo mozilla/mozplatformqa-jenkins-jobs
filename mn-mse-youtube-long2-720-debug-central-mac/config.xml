@@ -52,7 +52,7 @@
 export MOZHARNESSHOME=/Users/mozilla/tools/mozharness
 export MINIDUMP_STACKWALK=/Users/mozilla/tools/minidump_stackwalk
 XPCOM_MEM_LEAK_LOG=./bloatview.log
-python ./run_media_tests.py --installer-url http://192.168.0.7/job/temp-firefox-central-debug/ws/firefox-41.0a1.en-US.mac64.dmg --symbols-url http://192.168.0.7/job/temp-firefox-central-debug/ws/firefox-41.0a1.en-US.mac64.crashreporter-symbols.zip --test-timeout 44000 --media-urls ./firefox_media_tests/urls/youtube/long2-720.ini
+python ./run_media_tests.py --installer-url http://192.168.0.7:8080/job/temp-firefox-central-debug/ws/firefox-41.0a1.en-US.mac64.dmg --symbols-url http://192.168.0.7:8080/job/temp-firefox-central-debug/ws/firefox-41.0a1.en-US.mac64.crashreporter-symbols.zip --test-timeout 44000 --media-urls ./firefox_media_tests/urls/youtube/long2-720.ini
 if [ ! -d ./logs ]; then exit 1; fi
 if [ &quot;$(grep --count &apos;Marionette: success&apos; logs/log_info.log)&quot; -eq &quot;0&quot; ]; then exit 1; fi</command>
       <ignoreExitCode>false</ignoreExitCode>

@@ -52,7 +52,7 @@
       <spec>H * * * *</spec>
       <entries>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
-          <url>http://192.168.0.7/job/firefox-nightly-mac/ws/releases/firefox-latest-nightly.en-US.mac.dmg</url>
+          <url>http://192.168.0.7:8080/job/firefox-nightly-mac/ws/releases/firefox-latest-nightly.en-US.mac.dmg</url>
           <proxyActivated>false</proxyActivated>
           <checkStatus>false</checkStatus>
           <statusCode>200</statusCode>
@@ -63,7 +63,7 @@
           <contentTypes/>
         </org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
-          <url>http://192.168.0.7/job/symbols-nightly-mac/ws/releases/firefox-latest-nightly.en-US.mac.crashreporter-symbols.zip</url>
+          <url>http://192.168.0.7:8080/job/symbols-nightly-mac/ws/releases/firefox-latest-nightly.en-US.mac.crashreporter-symbols.zip</url>
           <proxyActivated>false</proxyActivated>
           <checkStatus>false</checkStatus>
           <statusCode>200</statusCode>
@@ -86,7 +86,7 @@
 # ls &quot;$MOZHARNESSHOME&quot; fails if the variable is set via Jenkin&apos;s node configuration
 export MOZHARNESSHOME=/Users/mozilla/tools/mozharness
 export MINIDUMP_STACKWALK=/Users/mozilla/tools/minidump_stackwalk
-python ./run_media_tests.py --installer-url http://192.168.0.7/job/firefox-nightly-mac/ws/releases/firefox-latest-nightly.en-US.mac.dmg --symbols-url http://192.168.0.7/job/symbols-nightly-mac/ws/releases/firefox-latest-nightly.en-US.mac.crashreporter-symbols.zip --test-timeout 900 
+python ./run_media_tests.py --installer-url http://192.168.0.7:8080/job/firefox-nightly-mac/ws/releases/firefox-latest-nightly.en-US.mac.dmg --symbols-url http://192.168.0.7:8080/job/symbols-nightly-mac/ws/releases/firefox-latest-nightly.en-US.mac.crashreporter-symbols.zip --test-timeout 900 
 if [ ! -d ./logs ]; then exit 1; fi
 if [ &quot;$(grep --count &apos;Marionette: success&apos; logs/log_info.log)&quot; -eq &quot;0&quot; ]; then exit 1; fi</command>
       <ignoreExitCode>false</ignoreExitCode>

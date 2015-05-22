@@ -45,7 +45,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.BatchFile>
-      <command>c:\mozilla-build\msys\bin\bash -c &quot;export PATH=$MOZBUILDPATH; export XPCOM_MEM_LEAK_LOG=./bloatview.log; export DMD=1; export _NT_SYMBOL_PATH=./build/symbols; export MOZ_REPLACE_MALLOC_LIB=dmd.dll; python ./run_media_tests.py --installer-url http://192.168.0.7/job/temp-firefox-central-debug/ws/firefox-41.0a1.en-US.win32.zip --symbols-url http://192.168.0.7/job/temp-firefox-central-debug/ws/firefox-41.0a1.en-US.win32.crashreporter-symbols.zip --test-timeout 44000 --media-urls ./firefox_media_tests/urls/youtube/long2-720.ini; if [ $(grep --count &apos;Marionette: success&apos; logs/log_info.log) -eq &quot;0&quot; ]; then exit 1; fi&quot; </command>
+      <command>c:\mozilla-build\msys\bin\bash -c &quot;export PATH=$MOZBUILDPATH; export XPCOM_MEM_LEAK_LOG=./bloatview.log; export DMD=1; export _NT_SYMBOL_PATH=./build/symbols; export MOZ_REPLACE_MALLOC_LIB=dmd.dll; python ./run_media_tests.py --installer-url http://192.168.0.7:8080/job/temp-firefox-central-debug/ws/firefox-41.0a1.en-US.win32.zip --symbols-url http://192.168.0.7:8080/job/temp-firefox-central-debug/ws/firefox-41.0a1.en-US.win32.crashreporter-symbols.zip --test-timeout 44000 --media-urls ./firefox_media_tests/urls/youtube/long2-720.ini; if [ $(grep --count &apos;Marionette: success&apos; logs/log_info.log) -eq &quot;0&quot; ]; then exit 1; fi&quot; </command>
     </hudson.tasks.BatchFile>
   </builders>
   <publishers>

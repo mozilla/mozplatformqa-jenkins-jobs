@@ -45,7 +45,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.BatchFile>
-      <command>c:\mozilla-build\msys\bin\bash -c &quot;export PATH=$MOZBUILDPATH; python ./run_media_tests.py --installer-url http://192.168.0.7/job/firefox-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.zip --symbols-url http://192.168.0.7/job/symbols-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.crashreporter-symbols.zip --test-timeout 12000 --media-urls firefox_media_tests/urls/youtube/long2-720.ini; if [ $(grep --count &apos;Marionette: success&apos; logs/log_info.log) -eq &quot;0&quot; ]; then exit 1; fi&quot; </command>
+      <command>c:\mozilla-build\msys\bin\bash -c &quot;export PATH=$MOZBUILDPATH; python ./run_media_tests.py --installer-url http://192.168.0.7:8080/job/firefox-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.zip --symbols-url http://192.168.0.7:8080/job/symbols-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.crashreporter-symbols.zip --test-timeout 12000 --media-urls firefox_media_tests/urls/youtube/long2-720.ini; if [ $(grep --count &apos;Marionette: success&apos; logs/log_info.log) -eq &quot;0&quot; ]; then exit 1; fi&quot; </command>
     </hudson.tasks.BatchFile>
   </builders>
   <publishers>

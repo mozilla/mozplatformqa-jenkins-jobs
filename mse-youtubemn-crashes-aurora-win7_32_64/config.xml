@@ -50,7 +50,7 @@
       <clear>true</clear>
       <systemSitePackages>false</systemSitePackages>
       <nature>shell</nature>
-      <command>c:\mozilla-build\msys\bin\bash -xe ./run-youtube-tests.sh http://192.168.0.7/job/firefox-aurora-win32/ws/releases/firefox-latest-aurora.en-US.win32.zip win32 ./firefox_media_tests/latest-Windows-37.ini</command>
+      <command>c:\mozilla-build\msys\bin\bash -xe ./run-youtube-tests.sh http://192.168.0.7:8080/job/firefox-aurora-win32/ws/releases/firefox-latest-aurora.en-US.win32.zip win32 ./firefox_media_tests/latest-Windows-37.ini</command>
       <ignoreExitCode>false</ignoreExitCode>
     </jenkins.plugins.shiningpanda.builders.VirtualenvBuilder>
   </builders>
