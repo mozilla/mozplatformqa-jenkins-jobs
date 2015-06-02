@@ -10,7 +10,7 @@
   </logRotator>
   <keepDependencies>false</keepDependencies>
   <properties/>
-  <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.3">
+  <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.4">
     <scms>
       <hudson.plugins.git.GitSCM plugin="git@2.3.5">
         <configVersion>2</configVersion>
@@ -134,7 +134,7 @@ $WORKSPACE/hello-test-scripts/setup.sh &amp;&amp; $WORKSPACE/hello-test-scripts/
     </hudson.tasks.Shell>
   </builders>
   <publishers>
-    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.39">
+    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.40.4">
       <recipientList>firefox-hello-e2e-test-notifications@mozilla.com</recipientList>
       <configuredTriggers>
         <hudson.plugins.emailext.plugins.trigger.FailureTrigger>
@@ -210,11 +210,5 @@ $WORKSPACE/hello-test-scripts/setup.sh &amp;&amp; $WORKSPACE/hello-test-scripts/
       <disabled>true</disabled>
     </hudson.plugins.emailext.ExtendedEmailPublisher>
   </publishers>
-  <buildWrappers>
-    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.25">
-      <deleteDirs>false</deleteDirs>
-      <cleanupParameter></cleanupParameter>
-      <externalDelete></externalDelete>
-    </hudson.plugins.ws__cleanup.PreBuildCleanup>
-  </buildWrappers>
+  <buildWrappers/>
 </project>

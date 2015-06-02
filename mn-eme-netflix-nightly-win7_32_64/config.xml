@@ -80,7 +80,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.BatchFile>
-      <command>c:\mozilla-build\msys\bin\bash -xe -c &quot;export PATH=$MOZBUILDPATH; python ./run_media_tests.py --installer-url http://192.168.0.7:8080/job/firefox-nightly-win32/ws/releases/firefox-latest-nightly.en-US.win32.zip --symbols-url http://192.168.0.7:8080/job/symbols-nightly-win32/ws/releases/firefox-latest-nightly.en-US.win32.crashreporter-symbols.zip --test-timeout 900; if [ $(grep --count &apos;Marionette: success&apos; logs/log_info.log) -eq &quot;0&quot; ]; then exit 1; fi&quot; </command>
+      <command>c:\mozilla-build\msys\bin\bash -xe -c &quot;export PATH=$MOZBUILDPATH; python ./run_media_tests.py --installer-url http://192.168.0.7:8080/job/firefox-nightly-win32/ws/releases/firefox-latest-nightly.en-US.win32.zip --symbols-url http://192.168.0.7:8080/job/symbols-nightly-win32/ws/releases/firefox-latest-nightly.en-US.win32.crashreporter-symbols.zip --profile=c:/testing/eme_profile --media-urls=./firefox_media_tests/urls/netflix/default.ini --tests=./firefox_media_tests/playback/video.ini --test-timeout 10800; if [ $(grep --count &apos;Marionette: success&apos; logs/log_info.log) -eq &quot;0&quot; ]; then exit 1; fi&quot; </command>
     </hudson.tasks.BatchFile>
   </builders>
   <publishers>

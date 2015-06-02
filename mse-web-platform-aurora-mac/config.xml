@@ -29,7 +29,7 @@
   </scm>
   <assignedNode>mac</assignedNode>
   <canRoam>false</canRoam>
-  <disabled>true</disabled>
+  <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
@@ -90,7 +90,7 @@
     </jenkins.plugins.shiningpanda.builders.VirtualenvBuilder>
   </builders>
   <publishers>
-    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.39.3">
+    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.40.3">
       <recipientList>$DEFAULT_RECIPIENTS</recipientList>
       <configuredTriggers>
         <hudson.plugins.emailext.plugins.trigger.FailureTrigger>
@@ -123,4 +123,3 @@
   </publishers>
   <buildWrappers/>
 </project>
-

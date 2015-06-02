@@ -2,12 +2,6 @@
 <project>
   <actions/>
   <description></description>
-  <logRotator class="hudson.tasks.LogRotator">
-    <daysToKeep>10</daysToKeep>
-    <numToKeep>30</numToKeep>
-    <artifactDaysToKeep>-1</artifactDaysToKeep>
-    <artifactNumToKeep>-1</artifactNumToKeep>
-  </logRotator>
   <keepDependencies>false</keepDependencies>
   <properties/>
   <scm class="hudson.scm.NullSCM"/>
@@ -21,7 +15,7 @@
       <spec>H/3 * * * *</spec>
       <fileInfo>
         <org.jenkinsci.plugins.fstrigger.triggers.FileNameTriggerInfo>
-          <filePathPattern>/Users/spolk/jenkins/workspace/firefox-nightly-mac/releases/firefox-latest-nightly.en-US.mac.dmg</filePathPattern>
+          <filePathPattern>/var/lib/jenkins/jobs/tests-beta-linux32/workspace/releases/firefox-latest-beta.en-US.linux-i686.tests.zip</filePathPattern>
           <strategy>LATEST</strategy>
           <inspectingContentFile>false</inspectingContentFile>
           <doNotCheckLastModificationDate>false</doNotCheckLastModificationDate>
@@ -34,7 +28,7 @@
   <builders/>
   <publishers>
     <hudson.plugins.downstream__ext.DownstreamTrigger plugin="downstream-ext@1.8">
-      <childProjects>expand-firefox-nightly-mac</childProjects>
+      <childProjects></childProjects>
       <threshold>
         <name>SUCCESS</name>
         <ordinal>0</ordinal>

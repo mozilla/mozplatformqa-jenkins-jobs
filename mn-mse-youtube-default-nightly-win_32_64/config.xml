@@ -34,7 +34,7 @@
   </scm>
   <assignedNode>win64 &amp;&amp; win</assignedNode>
   <canRoam>false</canRoam>
-  <disabled>true</disabled>
+  <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
@@ -84,7 +84,7 @@
     </hudson.tasks.BatchFile>
   </builders>
   <publishers>
-    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.40">
+    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.40.3">
       <recipientList>$DEFAULT_RECIPIENTS, maja@mozilla.com</recipientList>
       <configuredTriggers>
         <hudson.plugins.emailext.plugins.trigger.FailureTrigger>
