@@ -114,11 +114,13 @@ PACKAGE1=firefox-latest-aurora.en-US.win32.zip
 BUILD_FILE1=firefox-latest-aurora.en-US.win32.txt
 MACHINE1=$WIN32_1
 ARCH1=i686
+OS1=win8-32
 
 PACKAGE2=firefox-latest-nightly.en-US.linux-x86_64.tar.bz2
 BUILD_FILE2=firefox-latest-nightly.en-US.linux-x86_64.txt
 MACHINE2=$LINUX64_1
 ARCH2=x86_64
+OS2=linux-64
 
 curl http://192.168.0.7:8080/job/firefox-aurora-win32/ws/releases/$PACKAGE1 &gt; $PACKAGE1
 curl http://192.168.0.7:8080/job/firefox-aurora-win32/ws/releases/$BUILD_FILE1 &gt; $BUILD_FILE1
@@ -128,7 +130,7 @@ if [ "$PACKAGE1" != "$PACKAGE2" ] ; then
     curl http://192.168.0.7:8080/job/firefox-nightly-linux64/ws/releases/$BUILD_FILE2 &gt; $BUILD_FILE2
 fi
 
-python `pwd`/mozplatformqa-jenkins/jenkinsherder.py --steeplechase `pwd`/steeplechase/steeplechase/runsteeplechase.py --package $PACKAGE1 --package2 $PACKAGE2 --save-logs-to `pwd`/logs --specialpowers-path /home/mozilla/firefoxes/aurora/linux64/tests/steeplechase/specialpowers --prefs-file /home/mozilla/firefoxes/aurora/linux64/tests/steeplechase/prefs_general.js --signalling-server $SIGNALLING_SERVER --html-manifest /home/mozilla/firefoxes/aurora/linux64/tests/steeplechase/tests/steeplechase.ini --host1 $MACHINE1:20701 --arch1 $ARCH1 --host2 $MACHINE2:20701 --arch2 $ARCH2
+python `pwd`/mozplatformqa-jenkins/jenkinsherder.py --steeplechase `pwd`/steeplechase/steeplechase/runsteeplechase.py --package $PACKAGE1 --package2 $PACKAGE2 --save-logs-to `pwd`/logs --specialpowers-path /home/mozilla/firefoxes/aurora/linux64/tests/steeplechase/specialpowers --prefs-file /home/mozilla/firefoxes/aurora/linux64/tests/steeplechase/prefs_general.js --signalling-server $SIGNALLING_SERVER --html-manifest /home/mozilla/firefoxes/aurora/linux64/tests/steeplechase/tests/steeplechase.ini --host1 $MACHINE1:20701 --arch1 $ARCH1 --host2 $MACHINE2:20701 --arch2 $ARCH2 --os1 $OS1 --os2 $OS2 --treeherder-url $TREEHERDER_URL --treeherder-credentials-path $TREEHERDER_CREDENTIALS
 </command>
     </hudson.tasks.Shell>
   </builders>
@@ -206,7 +208,7 @@ python `pwd`/mozplatformqa-jenkins/jenkinsherder.py --steeplechase `pwd`/steeple
       <compressBuildLog>false</compressBuildLog>
       <replyTo>$DEFAULT_REPLYTO</replyTo>
       <saveOutput>false</saveOutput>
-      <disabled>true</disabled>
+      <disabled>false</disabled>
     </hudson.plugins.emailext.ExtendedEmailPublisher>
   </publishers>
   <buildWrappers/>
