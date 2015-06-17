@@ -57,7 +57,7 @@
   </scm>
   <assignedNode>network-steeplechase</assignedNode>
   <canRoam>false</canRoam>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
@@ -114,11 +114,13 @@ PACKAGE1=firefox-latest-nightly.en-US.linux-x86_64.tar.bz2
 BUILD_FILE1=firefox-latest-nightly.en-US.linux-x86_64.txt
 MACHINE1=$TURN_UDP_1
 ARCH1=x86_64
+OS1=linux-64
 
 PACKAGE2=firefox-latest-aurora.en-US.linux-i686.tar.bz2
 BUILD_FILE2=firefox-latest-aurora.en-US.linux-i686.txt
 MACHINE2=$TURN_TCP_2
 ARCH2=i686
+OS2=linux-32
 
 curl http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-nightly-linux64/ws/releases/$PACKAGE1 &gt; $PACKAGE1
 curl http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-nightly-linux64/ws/releases/$BUILD_FILE1 &gt; $BUILD_FILE1
@@ -128,7 +130,7 @@ if [ "$PACKAGE1" != "$PACKAGE2" ] ; then
     curl http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-aurora-linux32/ws/releases/$BUILD_FILE2 &gt; $BUILD_FILE2
 fi
 
-python `pwd`/mozplatformqa-jenkins/jenkinsherder.py --steeplechase `pwd`/steeplechase/steeplechase/runsteeplechase.py --package $PACKAGE1 --package2 $PACKAGE2 --save-logs-to `pwd`/logs --specialpowers-path /home/mozilla/firefoxes/aurora/linux64/tests/steeplechase/specialpowers --prefs-file /home/mozilla/firefoxes/aurora/linux64/tests/steeplechase/prefs_general.js --signalling-server $NETWORK_SIGNALLING_SERVER --html-manifest /home/mozilla/firefoxes/aurora/linux64/tests/steeplechase/tests/steeplechase.ini --host1 $MACHINE1:20701 --arch1 $ARCH1 --host2 $MACHINE2:20701 --arch2 $ARCH2
+python `pwd`/mozplatformqa-jenkins/jenkinsherder.py --steeplechase `pwd`/steeplechase/steeplechase/runsteeplechase.py --package $PACKAGE1 --package2 $PACKAGE2 --save-logs-to `pwd`/logs --specialpowers-path /home/mozilla/firefoxes/aurora/linux64/tests/steeplechase/specialpowers --prefs-file /home/mozilla/firefoxes/aurora/linux64/tests/steeplechase/prefs_general.js --signalling-server $NETWORK_SIGNALLING_SERVER --html-manifest /home/mozilla/firefoxes/aurora/linux64/tests/steeplechase/tests/steeplechase.ini --host1 $MACHINE1:20701 --arch1 $ARCH1 --host2 $MACHINE2:20701 --arch2 $ARCH2 --os1 $OS1 --os2 $OS2 --treeherder-url $TREEHERDER_URL --treeherder-credentials-path $TREEHERDER_CREDENTIALS
 </command>
     </hudson.tasks.Shell>
   </builders>
