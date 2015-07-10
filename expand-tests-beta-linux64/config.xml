@@ -110,7 +110,7 @@ unzip -u -o $WORKSPACE/firefox-latest-beta.en-US.linux-x86_64.tests.zip</command
       <compressBuildLog>false</compressBuildLog>
       <replyTo>$DEFAULT_REPLYTO</replyTo>
       <saveOutput>false</saveOutput>
-      <disabled>false</disabled>
+      <disabled>true</disabled>
     </hudson.plugins.emailext.ExtendedEmailPublisher>
   </publishers>
   <buildWrappers/>

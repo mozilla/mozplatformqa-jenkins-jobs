@@ -10,7 +10,7 @@
   </logRotator>
   <keepDependencies>false</keepDependencies>
   <properties/>
-  <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.3">
+  <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.4">
     <scms>
       <hudson.plugins.git.GitSCM plugin="git@2.3.5">
         <configVersion>2</configVersion>
@@ -95,7 +95,7 @@
       <spec>H * * * *</spec>
       <ignorePostCommitHooks>true</ignorePostCommitHooks>
     </hudson.triggers.SCMTrigger>
-    <org.jenkinsci.plugins.urltrigger.URLTrigger plugin="urltrigger@0.37">
+    <org.jenkinsci.plugins.urltrigger.URLTrigger plugin="urltrigger@0.38">
       <spec>H * * * *</spec>
       <entries>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
@@ -105,7 +105,7 @@
           <statusCode>200</statusCode>
           <timeout>300</timeout>
           <checkETag>false</checkETag>
-          <checkLastModificationDate>true</checkLastModificationDate>
+          <checkLastModificationDate>false</checkLastModificationDate>
           <inspectingContent>false</inspectingContent>
           <contentTypes/>
         </org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
@@ -116,7 +116,7 @@
           <statusCode>200</statusCode>
           <timeout>300</timeout>
           <checkETag>false</checkETag>
-          <checkLastModificationDate>true</checkLastModificationDate>
+          <checkLastModificationDate>false</checkLastModificationDate>
           <inspectingContent>false</inspectingContent>
           <contentTypes/>
         </org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
@@ -134,8 +134,8 @@ $WORKSPACE/hello-test-scripts/setup.sh &amp;&amp; $WORKSPACE/hello-test-scripts/
     </hudson.tasks.Shell>
   </builders>
   <publishers>
-    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.39">
-      <recipientList>firefox-hello-e2e-test-notifications@mozilla.com</recipientList>
+    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.40.5">
+      <recipientList>firefox-hello-test-notifications@mozilla.com</recipientList>
       <configuredTriggers>
         <hudson.plugins.emailext.plugins.trigger.FailureTrigger>
           <email>
@@ -205,13 +205,13 @@ $WORKSPACE/hello-test-scripts/setup.sh &amp;&amp; $WORKSPACE/hello-test-scripts/
       <presendScript>$DEFAULT_PRESEND_SCRIPT</presendScript>
       <attachBuildLog>false</attachBuildLog>
       <compressBuildLog>false</compressBuildLog>
-      <replyTo>firefox-hello-e2e-test-notifications@mozilla.com</replyTo>
+      <replyTo>firefox-hello-test-notifications@mozilla.com</replyTo>
       <saveOutput>false</saveOutput>
       <disabled>false</disabled>
     </hudson.plugins.emailext.ExtendedEmailPublisher>
   </publishers>
   <buildWrappers>
-    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.25">
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.26">
       <deleteDirs>false</deleteDirs>
       <cleanupParameter></cleanupParameter>
       <externalDelete></externalDelete>

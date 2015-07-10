@@ -80,11 +80,11 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.BatchFile>
-      <command>c:\mozilla-build\msys\bin\bash -c &quot;export PATH=$MOZBUILDPATH; python ./run_media_tests.py --installer-url http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-aurora-win32/ws/releases/firefox-latest-aurora.en-US.win32.zip --symbols-url http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/symbols-aurora-win32/ws/releases/firefox-latest-aurora.en-US.win32.crashreporter-symbols.zip --test-timeout 900; if [ $(grep --count &apos;Marionette: success&apos; logs/log_info.log) -eq &quot;0&quot; ]; then exit 1; fi&quot; </command>
+      <command>c:\mozilla-build\msys\bin\bash -xe -c &quot;export PATH=$MOZBUILDPATH; python ./run_media_tests.py --installer-url http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-aurora-win32/ws/releases/firefox-latest-aurora.en-US.win32.zip --symbols-url http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/symbols-aurora-win32/ws/releases/firefox-latest-aurora.en-US.win32.crashreporter-symbols.zip --test-timeout 900 -c config/treeherder_submission.py --log-level=debug --treeherder-url=&apos;https://treeherder.mozilla.org/&apos; --treeherder-credentials=$TREEHERDER_CONFIG/treeherder-production-credentials.json --s3-credentials=$TREEHERDER_CONFIG/s3-credentials.json; if [ $(grep --count &apos;Marionette: success&apos; logs/log_info.log) -eq &quot;0&quot; ]; then exit 1; fi&quot; </command>
     </hudson.tasks.BatchFile>
   </builders>
   <publishers>
-    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.40">
+    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.40.4">
       <recipientList>$DEFAULT_RECIPIENTS, maja@mozilla.com</recipientList>
       <configuredTriggers>
         <hudson.plugins.emailext.plugins.trigger.FailureTrigger>

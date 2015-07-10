@@ -34,7 +34,7 @@
   </scm>
   <assignedNode>mac</assignedNode>
   <canRoam>false</canRoam>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
@@ -59,7 +59,7 @@ if [ &quot;$(grep --count &apos;Marionette: success&apos; logs/log_info.log)&quo
     </jenkins.plugins.shiningpanda.builders.PythonBuilder>
   </builders>
   <publishers>
-    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.40">
+    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.40.4">
       <recipientList>$DEFAULT_RECIPIENTS, maja@mozilla.com</recipientList>
       <configuredTriggers>
         <hudson.plugins.emailext.plugins.trigger.FailureTrigger>

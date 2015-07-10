@@ -86,14 +86,15 @@
 # ls &quot;$MOZHARNESSHOME&quot; fails if the variable is set via Jenkin&apos;s node configuration
 export MOZHARNESSHOME=/Users/mozilla/tools/mozharness
 export MINIDUMP_STACKWALK=/Users/mozilla/tools/minidump_stackwalk
-python ./run_media_tests.py --installer-url http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-nightly-mac/ws/releases/firefox-latest-nightly.en-US.mac.dmg --symbols-url http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/symbols-nightly-mac/ws/releases/firefox-latest-nightly.en-US.mac.crashreporter-symbols.zip --test-timeout 4000 --media-urls ./firefox_media_tests/urls/youtube/medium1-60.ini 
+export TREEHERDER_CONFIG=/Users/mozilla/testing/treeherder_config
+python ./run_media_tests.py --installer-url http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-nightly-mac/ws/releases/firefox-latest-nightly.en-US.mac.dmg --symbols-url http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/symbols-nightly-mac/ws/releases/firefox-latest-nightly.en-US.mac.crashreporter-symbols.zip --test-timeout 4000 --media-urls ./firefox_media_tests/urls/youtube/medium1-60.ini -c config/treeherder_submission.py --log-level=debug --job-name=&apos;MSE YouTube Playback Medium1 60min&apos; --job-symbol=ym1-60 --tests ./firefox_media_tests/playback/youtube/manifest.ini --treeherder-url=&apos;https://treeherder.mozilla.org/&apos; --treeherder-credentials=$TREEHERDER_CONFIG/treeherder-production-credentials.json --s3-credentials=$TREEHERDER_CONFIG/s3-credentials.json;
 if [ ! -d ./logs ]; then exit 1; fi
 if [ &quot;$(grep --count &apos;Marionette: success&apos; logs/log_info.log)&quot; -eq &quot;0&quot; ]; then exit 1; fi</command>
       <ignoreExitCode>false</ignoreExitCode>
     </jenkins.plugins.shiningpanda.builders.PythonBuilder>
   </builders>
   <publishers>
-    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.40">
+    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.40.4">
       <recipientList>$DEFAULT_RECIPIENTS, maja@mozilla.com</recipientList>
       <configuredTriggers>
         <hudson.plugins.emailext.plugins.trigger.FailureTrigger>
