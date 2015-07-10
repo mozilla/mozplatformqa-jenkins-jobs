@@ -27,7 +27,7 @@
     <submoduleCfg class="list"/>
     <extensions/>
   </scm>
-  <assignedNode>mse && win32 &amp;&amp; mse &amp;&amp; win</assignedNode>
+  <assignedNode>mse &amp;&amp; win32 &amp;&amp; mse &amp;&amp; win</assignedNode>
   <canRoam>false</canRoam>
   <disabled>true</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
