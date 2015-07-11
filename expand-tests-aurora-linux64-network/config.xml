@@ -36,11 +36,33 @@
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
-    <org.jenkinsci.plugins.urltrigger.URLTrigger plugin="urltrigger@0.37">
-      <spec></spec>
+    <org.jenkinsci.plugins.urltrigger.URLTrigger plugin="urltrigger@0.38">
+      <spec>H * * * *</spec>
       <entries>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
-          <url>http://pf-jenkins.qa.mtv2.mozilla.com:8080/view/tests/job/tests-aurora-linux64/ws/releases/firefox-latest-aurora.en-US.linux-x86_64.tests.zip</url>
+          <url>http://pf-jenkins.qa.mtv2.mozilla.com:8080/view/tests/job/tests-aurora-linux64/ws/releases/firefox-latest-aurora.en-US.linux-x86_64.common.tests.zip</url>
+          <proxyActivated>false</proxyActivated>
+          <checkStatus>false</checkStatus>
+          <statusCode>200</statusCode>
+          <timeout>300</timeout>
+          <checkETag>false</checkETag>
+          <checkLastModificationDate>true</checkLastModificationDate>
+          <inspectingContent>false</inspectingContent>
+          <contentTypes/>
+        </org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
+        <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
+          <url>http://pf-jenkins.qa.mtv2.mozilla.com:8080/view/tests/job/tests-aurora-linux64/ws/releases/firefox-latest-aurora.en-US.linux-x86_64.mochitest.tests.zip</url>
+          <proxyActivated>false</proxyActivated>
+          <checkStatus>false</checkStatus>
+          <statusCode>200</statusCode>
+          <timeout>300</timeout>
+          <checkETag>false</checkETag>
+          <checkLastModificationDate>true</checkLastModificationDate>
+          <inspectingContent>false</inspectingContent>
+          <contentTypes/>
+        </org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
+        <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
+          <url>http://pf-jenkins.qa.mtv2.mozilla.com:8080/view/tests/job/tests-aurora-linux64/ws/releases/firefox-latest-aurora.en-US.linux-x86_64.web-platform.tests.zip</url>
           <proxyActivated>false</proxyActivated>
           <checkStatus>false</checkStatus>
           <statusCode>200</statusCode>
@@ -64,9 +86,10 @@ rm -rf tests
 mkdir -p tests
 cd tests
 
-curl http://pf-jenkins.qa.mtv2.mozilla.com:8080/view/tests/job/tests-aurora-linux64/ws/releases/firefox-latest-aurora.en-US.linux-x86_64.tests.zip &gt; firefox-latest-aurora.en-US.linux-x86_64.tests.zip
-
-unzip -u -o firefox-latest-aurora.en-US.linux-x86_64.tests.zip &apos;steeplechase/*&apos; &apos;mochitest/tests/dom/media/tests/*&apos;
+curl http://pf-jenkins.qa.mtv2.mozilla.com:8080/view/tests/job/tests-aurora-linux64/ws/releases/firefox-latest-aurora.en-US.linux-x86_64.common.tests.zip &gt; firefox-latest-aurora.en-US.linux-x86_64.common.tests.zip
+unzip -u -o firefox-latest-aurora.en-US.linux-x86_64.common.tests.zip
+curl http://pf-jenkins.qa.mtv2.mozilla.com:8080/view/tests/job/tests-aurora-linux64/ws/releases/firefox-latest-aurora.en-US.linux-x86_64.mochitest.tests.zip &gt; firefox-latest-aurora.en-US.linux-x86_64.mochitest.tests.zip
+unzip -u -o firefox-latest-aurora.en-US.linux-x86_64.mochitest.tests.zip
 
 cp $WORKSPACE/turnConfig.js $DEST/tests/steeplechase/tests/dom/media/tests/mochitest/
 # cp $WORKSPACE/aurora/pc.js $DEST/tests/steeplechase/tests/dom/media/tests/mochitest/
@@ -79,7 +102,7 @@ cp $DEST/tests/mochitest/tests/dom/media/tests/mochitest/test_peerConnection_bas
     </hudson.tasks.Shell>
   </builders>
   <publishers>
-    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.40.4">
+    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.40.5">
       <recipientList>nils@mozilla.com</recipientList>
       <configuredTriggers>
         <hudson.plugins.emailext.plugins.trigger.FailureTrigger>

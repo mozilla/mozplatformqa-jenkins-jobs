@@ -29,7 +29,7 @@
   </scm>
   <assignedNode>mse &amp;&amp; win32 &amp;&amp; mse &amp;&amp; win7</assignedNode>
   <canRoam>false</canRoam>
-  <disabled>true</disabled>
+  <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
@@ -134,4 +134,3 @@
   </publishers>
   <buildWrappers/>
 </project>
-

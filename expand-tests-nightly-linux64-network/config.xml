@@ -4,9 +4,9 @@
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties/>
-  <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.3">
+  <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.4">
     <scms>
-      <hudson.plugins.git.GitSCM plugin="git@2.2.7">
+      <hudson.plugins.git.GitSCM plugin="git@2.3.5">
         <configVersion>2</configVersion>
         <userRemoteConfigs>
           <hudson.plugins.git.UserRemoteConfig>
@@ -30,11 +30,22 @@
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
-    <org.jenkinsci.plugins.urltrigger.URLTrigger plugin="urltrigger@0.37">
+    <org.jenkinsci.plugins.urltrigger.URLTrigger plugin="urltrigger@0.38">
       <spec></spec>
       <entries>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
-          <url>http://pf-jenkins.qa.mtv2.mozilla.com:8080/view/tests/job/tests-nightly-linux64/ws/releases/firefox-latest-nightly.en-US.linux-x86_64.tests.zip</url>
+          <url>http://pf-jenkins.qa.mtv2.mozilla.com:8080/view/tests/job/tests-nightly-linux64/ws/releases/firefox-latest-nightly.en-US.linux-x86_64.common.tests.zip</url>
+          <proxyActivated>false</proxyActivated>
+          <checkStatus>false</checkStatus>
+          <statusCode>200</statusCode>
+          <timeout>300</timeout>
+          <checkETag>false</checkETag>
+          <checkLastModificationDate>true</checkLastModificationDate>
+          <inspectingContent>false</inspectingContent>
+          <contentTypes/>
+        </org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
+        <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
+          <url>http://pf-jenkins.qa.mtv2.mozilla.com:8080/view/tests/job/tests-nightly-linux64/ws/releases/firefox-latest-nightly.en-US.linux-x86_64.mochitest.tests.zip</url>
           <proxyActivated>false</proxyActivated>
           <checkStatus>false</checkStatus>
           <statusCode>200</statusCode>
@@ -58,9 +69,11 @@ rm -rf tests
 mkdir -p tests
 cd tests
 
-curl http://pf-jenkins.qa.mtv2.mozilla.com:8080/view/tests/job/tests-nightly-linux64/ws/releases/firefox-latest-nightly.en-US.linux-x86_64.tests.zip &gt; firefox-latest-nightly.en-US.linux-x86_64.tests.zip
+curl http://pf-jenkins.qa.mtv2.mozilla.com:8080/view/tests/job/tests-nightly-linux64/ws/releases/firefox-latest-nightly.en-US.linux-x86_64.common.tests.zip &gt; firefox-latest-nightly.en-US.linux-x86_64.common.tests.zip
+unzip -u -o firefox-latest-nightly.en-US.linux-x86_64.common.tests.zip
 
-unzip -u -o firefox-latest-nightly.en-US.linux-x86_64.tests.zip &apos;steeplechase/*&apos; &apos;mochitest/tests/dom/media/tests/*&apos;
+curl http://pf-jenkins.qa.mtv2.mozilla.com:8080/view/tests/job/tests-nightly-linux64/ws/releases/firefox-latest-nightly.en-US.linux-x86_64.mochitest.tests.zip &gt; firefox-latest-nightly.en-US.linux-x86_64.mochitest.tests.zip
+unzip -u -o firefox-latest-nightly.en-US.linux-x86_64.mochitest.tests.zip
 
 cp $WORKSPACE/turnConfig.js $DEST/tests/steeplechase/tests/dom/media/tests/mochitest/
 # cp $WORKSPACE/pc.js $DEST/tests/steeplechase/tests/dom/media/tests/mochitest/
@@ -74,7 +87,7 @@ cp $DEST/tests/mochitest/tests/dom/media/tests/mochitest/test_peerConnection_bas
     </hudson.tasks.Shell>
   </builders>
   <publishers>
-    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.38.2">
+    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.40.5">
       <recipientList>nils@mozilla.com</recipientList>
       <configuredTriggers>
         <hudson.plugins.emailext.plugins.trigger.FailureTrigger>
@@ -147,6 +160,7 @@ cp $DEST/tests/mochitest/tests/dom/media/tests/mochitest/test_peerConnection_bas
       <compressBuildLog>false</compressBuildLog>
       <replyTo>$DEFAULT_REPLYTO</replyTo>
       <saveOutput>false</saveOutput>
+      <disabled>false</disabled>
     </hudson.plugins.emailext.ExtendedEmailPublisher>
   </publishers>
   <buildWrappers/>

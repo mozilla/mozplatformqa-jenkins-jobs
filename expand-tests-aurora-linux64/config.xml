@@ -13,7 +13,13 @@
   <scm class="hudson.plugins.URLSCM.URLSCM" plugin="URLSCM@1.6">
     <urls>
       <hudson.plugins.URLSCM.URLSCM_-URLTuple>
-        <urlString>http://pf-jenkins.qa.mtv2.mozilla.com:8080/view/tests/job/tests-aurora-linux64/ws/releases/firefox-latest-aurora.en-US.linux-x86_64.tests.zip</urlString>
+        <urlString>http://pf-jenkins.qa.mtv2.mozilla.com:8080/view/tests/job/tests-aurora-linux64/ws/releases/firefox-latest-aurora.en-US.linux-x86_64.common.tests.zip</urlString>
+      </hudson.plugins.URLSCM.URLSCM_-URLTuple>
+      <hudson.plugins.URLSCM.URLSCM_-URLTuple>
+        <urlString>http://pf-jenkins.qa.mtv2.mozilla.com:8080/view/tests/job/tests-aurora-linux64/ws/releases/firefox-latest-aurora.en-US.linux-x86_64.mochitest.tests.zip</urlString>
+      </hudson.plugins.URLSCM.URLSCM_-URLTuple>
+      <hudson.plugins.URLSCM.URLSCM_-URLTuple>
+        <urlString>http://pf-jenkins.qa.mtv2.mozilla.com:8080/view/tests/job/tests-aurora-linux64/ws/releases/firefox-latest-aurora.en-US.linux-x86_64.web-platform.tests.zip</urlString>
       </hudson.plugins.URLSCM.URLSCM_-URLTuple>
     </urls>
     <clearWorkspace>true</clearWorkspace>
@@ -30,15 +36,20 @@
       <command>export DEST=/home/mozilla/firefoxes/aurora/linux64
 mkdir -p $DEST
 cd $DEST
-unzip -t $WORKSPACE/firefox-latest-aurora.en-US.linux-x86_64.tests.zip
+unzip -t $WORKSPACE/firefox-latest-aurora.en-US.linux-x86_64.common.tests.zip
+unzip -t $WORKSPACE/firefox-latest-aurora.en-US.linux-x86_64.mochitest.tests.zip
+unzip -t $WORKSPACE/firefox-latest-aurora.en-US.linux-x86_64.web-platform.tests.zip
 rm -rf tests
 mkdir -p tests
 cd tests
-unzip -u -o $WORKSPACE/firefox-latest-aurora.en-US.linux-x86_64.tests.zip</command>
+unzip -u -o $WORKSPACE/firefox-latest-aurora.en-US.linux-x86_64.common.tests.zip
+unzip -u -o $WORKSPACE/firefox-latest-aurora.en-US.linux-x86_64.mochitest.tests.zip
+unzip -u -o $WORKSPACE/firefox-latest-aurora.en-US.linux-x86_64.web-platform.tests.zip
+</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
-    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.39">
+    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.40.5">
       <recipientList>$DEFAULT_RECIPIENTS</recipientList>
       <configuredTriggers>
         <hudson.plugins.emailext.plugins.trigger.FailureTrigger>
