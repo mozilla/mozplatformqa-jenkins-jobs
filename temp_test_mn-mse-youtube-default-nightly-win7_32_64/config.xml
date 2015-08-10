@@ -10,16 +10,16 @@
   </logRotator>
   <keepDependencies>false</keepDependencies>
   <properties/>
-  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.4.0">
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>https://github.com/sydvicious/firefox-media-tests.git</url>
+        <url>https://github.com/mjzffr/firefox-media-tests.git</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
       <hudson.plugins.git.BranchSpec>
-        <name>*/bandwidth-limiting</name>
+        <name>*/pf-jenkins</name>
       </hudson.plugins.git.BranchSpec>
     </branches>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
@@ -41,12 +41,12 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.BatchFile>
-      <command>c:\mozilla-build\msys\bin\bash -xe -c &quot;export PATH=$MOZBUILDPATH; python ./run_media_tests.py --installer-url http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-nightly-win32/ws/releases/firefox-latest-nightly.en-US.win32.zip --symbols-url http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/symbols-nightly-win32/ws/releases/firefox-latest-nightly.en-US.win32.crashreporter-symbols.zip --test-timeout 900 -c config/treeherder_submission.py --no-treeherding --treeherder-url &apos;https://treeherder.allizom.org&apos; --treeherder-credentials $TREEHERDER_CONFIG/treeherder-staging-credentials.json --log-level=debug --tests ./firefox_media_tests/playback/youtube/manifest.ini; if [ $(grep --count &apos;Marionette: success&apos; logs/log_info.log) -eq &quot;0&quot; ]; then exit 1; fi&quot; </command>
+      <command>c:\mozilla-build\msys\bin\bash -xe -c &quot;export PATH=$MOZBUILDPATH; python ./run_media_tests.py --installer-url http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-nightly-win32/ws/releases/firefox-latest-nightly.en-US.win32.zip --symbols-url http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/symbols-nightly-win32/ws/releases/firefox-latest-nightly.en-US.win32.crashreporter-symbols.zip --test-timeout 900 -c config/treeherder_submission.py  --treeherder-url &apos;https://treeherder.allizom.org&apos; --treeherder-credentials $TREEHERDER_CONFIG/treeherder-staging-credentials.json --log-level=debug; if [ $(grep --count &apos;Marionette: success&apos; logs/log_info.log) -eq &quot;0&quot; ]; then exit 1; fi&quot; </command>
     </hudson.tasks.BatchFile>
   </builders>
   <publishers>
     <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.40.5">
-      <recipientList>$DEFAULT_RECIPIENTS, maja@mozilla.com</recipientList>
+      <recipientList>maja@mozilla.com</recipientList>
       <configuredTriggers>
         <hudson.plugins.emailext.plugins.trigger.FailureTrigger>
           <email>
@@ -66,10 +66,22 @@
       </configuredTriggers>
       <contentType>default</contentType>
       <defaultSubject>$DEFAULT_SUBJECT</defaultSubject>
-      <defaultContent>$DEFAULT_CONTENT</defaultContent>
-      <attachmentsPattern></attachmentsPattern>
+      <defaultContent>$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
+
+Check console output at $BUILD_URL/console to view the results.
+
+Check HTML report at: $JOB_URL/ws/logs/media_tests.html
+
+Log excerpt:
+
+${BUILD_LOG_EXCERPT, start=&quot;^.*#{5} Running run_marionette_tests.*&quot;, end=&quot;^.*#{5} Finished run_marionette_tests.*$&quot;}
+
+Uploads:
+${BUILD_LOG_REGEX, regex=&quot;^.*post_request - url is.*&quot;, maxMatches=1}
+</defaultContent>
+      <attachmentsPattern>logs/media_tests_mach.log, logs/log_error.log, logs/log_debug.log</attachmentsPattern>
       <presendScript>$DEFAULT_PRESEND_SCRIPT</presendScript>
-      <attachBuildLog>true</attachBuildLog>
+      <attachBuildLog>false</attachBuildLog>
       <compressBuildLog>false</compressBuildLog>
       <replyTo>$DEFAULT_REPLYTO</replyTo>
       <saveOutput>false</saveOutput>
