@@ -10,12 +10,11 @@
   </logRotator>
   <keepDependencies>false</keepDependencies>
   <properties/>
-  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.4.0">
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
         <url>http://github.com/sydvicious/mozplatformqa-jenkins.git</url>
-        <credentialsId>337b81f4-cb01-4443-a97f-d11e9457957f</credentialsId>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
@@ -35,7 +34,7 @@
   <triggers>
     <jenkins.triggers.ReverseBuildTrigger>
       <spec></spec>
-      <upstreamProjects>trigger-firefox-aurora-win32, trigger-tests-aurora-win32</upstreamProjects>
+      <upstreamProjects>trigger-firefox-aurora-win32,trigger-tests-aurora-win32</upstreamProjects>
       <threshold>
         <name>SUCCESS</name>
         <ordinal>0</ordinal>
@@ -47,7 +46,7 @@
       <spec>H/3 * * * *</spec>
       <ignorePostCommitHooks>false</ignorePostCommitHooks>
     </hudson.triggers.SCMTrigger>
-    <org.jenkinsci.plugins.urltrigger.URLTrigger plugin="urltrigger@0.38">
+    <org.jenkinsci.plugins.urltrigger.URLTrigger plugin="urltrigger@0.40">
       <spec>H * * * *</spec>
       <entries>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
