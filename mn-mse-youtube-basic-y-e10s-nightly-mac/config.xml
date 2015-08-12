@@ -32,7 +32,7 @@
       </hudson.plugins.git.extensions.impl.SubmoduleOption>
     </extensions>
   </scm>
-  <assignedNode>win64 &amp;&amp; win</assignedNode>
+  <assignedNode>mac</assignedNode>
   <canRoam>false</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
@@ -40,7 +40,7 @@
   <triggers>
     <jenkins.triggers.ReverseBuildTrigger>
       <spec></spec>
-      <upstreamProjects>trigger-firefox-nightly-win32</upstreamProjects>
+      <upstreamProjects>trigger-firefox-nightly-mac</upstreamProjects>
       <threshold>
         <name>SUCCESS</name>
         <ordinal>0</ordinal>
@@ -52,7 +52,7 @@
       <spec>H * * * *</spec>
       <entries>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
-          <url>http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-nightly-win32/ws/releases/firefox-latest-nightly.en-US.win32.zip</url>
+          <url>http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-nightly-mac/ws/releases/firefox-latest-nightly.en-US.mac.dmg</url>
           <proxyActivated>false</proxyActivated>
           <checkStatus>false</checkStatus>
           <statusCode>200</statusCode>
@@ -63,7 +63,7 @@
           <contentTypes/>
         </org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
-          <url>http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/symbols-nightly-win32/ws/releases/firefox-latest-nightly.en-US.win32.crashreporter-symbols.zip</url>
+          <url>http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/symbols-nightly-mac/ws/releases/firefox-latest-nightly.en-US.mac.crashreporter-symbols.zip</url>
           <proxyActivated>false</proxyActivated>
           <checkStatus>false</checkStatus>
           <statusCode>200</statusCode>
@@ -79,9 +79,19 @@
   </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <hudson.tasks.BatchFile>
-      <command>c:\mozilla-build\msys\bin\bash -xe -c &quot;export PATH=$MOZBUILDPATH; python ./run_media_tests.py --installer-url http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-nightly-win32/ws/releases/firefox-latest-nightly.en-US.win32.zip --symbols-url http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/symbols-nightly-win32/ws/releases/firefox-latest-nightly.en-US.win32.crashreporter-symbols.zip --test-timeout 900 --e10s --job-symbol m-e10s --job-name &apos;MSE Video Playback (e10s)&apos; -c config/treeherder_submission.py --log-level=debug --treeherder-url=&apos;https://treeherder.allizom.org/&apos; --treeherder-credentials=$TREEHERDER_CONFIG/treeherder-staging-credentials.json --s3-credentials=$TREEHERDER_CONFIG/s3-credentials.json; if [ $(grep --count &apos;Marionette: success&apos; logs/log_info.log) -eq &quot;0&quot; ]; then exit 1; fi&quot; </command>
-    </hudson.tasks.BatchFile>
+    <jenkins.plugins.shiningpanda.builders.PythonBuilder plugin="shiningpanda@0.21">
+      <pythonName>System-CPython-2.7</pythonName>
+      <nature>shell</nature>
+      <command>#!/bin/bash
+# ls &quot;$MOZHARNESSHOME&quot; fails if the variable is set via Jenkin&apos;s node configuration
+export MOZHARNESSHOME=/Users/mozilla/tools/mozharness
+export MINIDUMP_STACKWALK=/Users/mozilla/tools/minidump_stackwalk
+export TREEHERDER_CONFIG=/Users/mozilla/testing/treeherder_config
+python ./run_media_tests.py --installer-url http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-nightly-mac/ws/releases/firefox-latest-nightly.en-US.mac.dmg --symbols-url http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/symbols-nightly-mac/ws/releases/firefox-latest-nightly.en-US.mac.crashreporter-symbols.zip --test-timeout 900 -c config/treeherder_submission.py --log-level=debug --job-name=&apos;MSE YouTube Playback (e10s)&apos; --job-symbol=y-e10s --e10s --tests ./firefox_media_tests/playback/youtube/manifest.ini --treeherder-url=&apos;https://treeherder.mozilla.org/&apos; --treeherder-credentials=$TREEHERDER_CONFIG/treeherder-production-credentials.json --s3-credentials=$TREEHERDER_CONFIG/s3-credentials.json 
+if [ ! -d ./logs ]; then exit 1; fi
+if [ &quot;$(grep --count &apos;Marionette: success&apos; logs/log_info.log)&quot; -eq &quot;0&quot; ]; then exit 1; fi</command>
+      <ignoreExitCode>false</ignoreExitCode>
+    </jenkins.plugins.shiningpanda.builders.PythonBuilder>
   </builders>
   <publishers>
     <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.40.5">

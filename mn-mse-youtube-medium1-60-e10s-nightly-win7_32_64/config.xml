@@ -32,7 +32,7 @@
       </hudson.plugins.git.extensions.impl.SubmoduleOption>
     </extensions>
   </scm>
-  <assignedNode>win64 &amp;&amp; win</assignedNode>
+  <assignedNode>win64 &amp;&amp; win7</assignedNode>
   <canRoam>false</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
@@ -80,7 +80,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.BatchFile>
-      <command>c:\mozilla-build\msys\bin\bash -xe -c &quot;export PATH=$MOZBUILDPATH; python ./run_media_tests.py --installer-url http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-nightly-win32/ws/releases/firefox-latest-nightly.en-US.win32.zip --symbols-url http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/symbols-nightly-win32/ws/releases/firefox-latest-nightly.en-US.win32.crashreporter-symbols.zip --test-timeout 900 --e10s --job-symbol m-e10s --job-name &apos;MSE Video Playback (e10s)&apos; -c config/treeherder_submission.py --log-level=debug --treeherder-url=&apos;https://treeherder.allizom.org/&apos; --treeherder-credentials=$TREEHERDER_CONFIG/treeherder-staging-credentials.json --s3-credentials=$TREEHERDER_CONFIG/s3-credentials.json; if [ $(grep --count &apos;Marionette: success&apos; logs/log_info.log) -eq &quot;0&quot; ]; then exit 1; fi&quot; </command>
+      <command>c:\mozilla-build\msys\bin\bash -xe -c &quot;export PATH=$MOZBUILDPATH; python ./run_media_tests.py --installer-url http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-nightly-win32/ws/releases/firefox-latest-nightly.en-US.win32.zip --symbols-url http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/symbols-nightly-win32/ws/releases/firefox-latest-nightly.en-US.win32.crashreporter-symbols.zip --test-timeout 4000 --media-urls ./firefox_media_tests/urls/youtube/medium1-60.ini -c config/treeherder_submission.py --log-level=debug --job-name=&apos;MSE YouTube Playback Medium1 60min (e10s)&apos; --job-symbol=ym1-60-e10s --e10s --tests ./firefox_media_tests/playback/youtube/manifest.ini --treeherder-url=&apos;https://treeherder.allizom.org/&apos; --treeherder-credentials=$TREEHERDER_CONFIG/treeherder-staging-credentials.json --s3-credentials=$TREEHERDER_CONFIG/s3-credentials.json; if [ $(grep --count &apos;Marionette: success&apos; logs/log_info.log) -eq &quot;0&quot; ]; then exit 1; fi&quot; </command>
     </hudson.tasks.BatchFile>
   </builders>
   <publishers>
