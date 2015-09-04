@@ -42,9 +42,9 @@
       <spec></spec>
       <upstreamProjects>trigger-firefox-aurora-win32</upstreamProjects>
       <threshold>
-        <name>SUCCESS</name>
-        <ordinal>0</ordinal>
-        <color>BLUE</color>
+        <name>FAILURE</name>
+        <ordinal>2</ordinal>
+        <color>RED</color>
         <completeBuild>true</completeBuild>
       </threshold>
     </jenkins.triggers.ReverseBuildTrigger>
@@ -62,17 +62,6 @@
           <inspectingContent>false</inspectingContent>
           <contentTypes/>
         </org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
-        <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
-          <url>http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/symbols-aurora-win32/ws/releases/firefox-latest-aurora.en-US.win32.crashreporter-symbols.zip</url>
-          <proxyActivated>false</proxyActivated>
-          <checkStatus>false</checkStatus>
-          <statusCode>200</statusCode>
-          <timeout>300</timeout>
-          <checkETag>false</checkETag>
-          <checkLastModificationDate>true</checkLastModificationDate>
-          <inspectingContent>false</inspectingContent>
-          <contentTypes/>
-        </org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
       </entries>
       <labelRestriction>false</labelRestriction>
     </org.jenkinsci.plugins.urltrigger.URLTrigger>
@@ -80,7 +69,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.BatchFile>
-      <command>c:\mozilla-build\msys\bin\bash -xe -c &quot;export PATH=$MOZBUILDPATH; python ./run_media_tests.py --installer-url http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-aurora-win32/ws/releases/firefox-latest-aurora.en-US.win32.zip --symbols-url http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/symbols-aurora-win32/ws/releases/firefox-latest-aurora.en-US.win32.crashreporter-symbols.zip --test-timeout 900 -c config/treeherder_submission.py --log-level=debug --job-name=&apos;MSE YouTube Playback&apos; --job-symbol=y --tests ./firefox_media_tests/playback/youtube/manifest.ini --treeherder-url=&apos;https://treeherder.mozilla.org/&apos; --treeherder-credentials=$TREEHERDER_CONFIG/treeherder-production-credentials.json --s3-credentials=$TREEHERDER_CONFIG/s3-credentials.json; if [ $(grep --count &apos;Marionette: success&apos; logs/log_info.log) -eq &quot;0&quot; ]; then exit 1; fi&quot; </command>
+      <command>c:\mozilla-build\msys\bin\bash -xe -c &quot;export PATH=$MOZBUILDPATH; python ./run_media_tests.py --installer-url http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-aurora-win32/ws/releases/firefox-latest-aurora.en-US.win32.zip --symbols-url http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/symbols-aurora-win32/ws/releases/firefox-latest-aurora.en-US.win32.crashreporter-symbols.zip --test-timeout 400 -c config/treeherder_submission.py --log-level=debug --job-name=&apos;MSE YouTube Playback&apos; --job-symbol=y --tests ./firefox_media_tests/playback/youtube/manifest.ini --treeherder-url=&apos;https://treeherder.mozilla.org/&apos; --treeherder-credentials=$TREEHERDER_CONFIG/treeherder-production-credentials.json --s3-credentials=$TREEHERDER_CONFIG/s3-credentials.json; if [ $(grep --count &apos;Marionette: success&apos; logs/log_info.log) -eq &quot;0&quot; ]; then exit 1; fi&quot; </command>
     </hudson.tasks.BatchFile>
   </builders>
   <publishers>
