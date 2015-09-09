@@ -1,7 +1,6 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<project>
+<?xml version="1.0" encoding="UTF-8"?><project>
   <actions/>
-  <description></description>
+  <description/>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>10</daysToKeep>
     <numToKeep>30</numToKeep>
@@ -10,7 +9,7 @@
   </logRotator>
   <keepDependencies>false</keepDependencies>
   <properties/>
-  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.4.0">
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
@@ -27,15 +26,15 @@
     <submoduleCfg class="list"/>
     <extensions/>
   </scm>
-  <assignedNode>mse &amp;&amp; win64 &amp;&amp; mse &amp;&amp; win7</assignedNode>
+  <assignedNode>mse &amp;&amp; win64 &amp;&amp; win7</assignedNode>
   <canRoam>false</canRoam>
   <disabled>true</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
     <jenkins.triggers.ReverseBuildTrigger>
-      <spec></spec>
-      <upstreamProjects>trigger-firefox-beta-win32, trigger-tests-beta-win32</upstreamProjects>
+      <spec/>
+      <upstreamProjects/>
       <threshold>
         <name>SUCCESS</name>
         <ordinal>0</ordinal>
@@ -47,11 +46,11 @@
       <spec>H/3 * * * *</spec>
       <ignorePostCommitHooks>false</ignorePostCommitHooks>
     </hudson.triggers.SCMTrigger>
-    <org.jenkinsci.plugins.urltrigger.URLTrigger plugin="urltrigger@0.38">
+    <org.jenkinsci.plugins.urltrigger.URLTrigger plugin="urltrigger@0.40">
       <spec>H * * * *</spec>
       <entries>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
-          <url>http://10.252.26.236:8080/job/firefox-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.zip</url>
+          <url>http://192.168.0.7:8080/job/firefox-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.zip</url>
           <proxyActivated>false</proxyActivated>
           <checkStatus>false</checkStatus>
           <statusCode>200</statusCode>
@@ -62,7 +61,7 @@
           <contentTypes/>
         </org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
-          <url>http://10.252.26.236:8080/job/tests-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.common.tests.zip</url>
+          <url>http://192.168.0.7:8080/job/tests-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.common.tests.zip</url>
           <proxyActivated>false</proxyActivated>
           <checkStatus>false</checkStatus>
           <statusCode>200</statusCode>
@@ -73,7 +72,7 @@
           <contentTypes/>
         </org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
-          <url>http://10.252.26.236:8080/job/tests-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.web-platform.tests.zip</url>
+          <url>http://192.168.0.7:8080/job/tests-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.web-platform.tests.zip</url>
           <proxyActivated>false</proxyActivated>
           <checkStatus>false</checkStatus>
           <statusCode>200</statusCode>
@@ -95,7 +94,7 @@
       <clear>true</clear>
       <systemSitePackages>false</systemSitePackages>
       <nature>shell</nature>
-      <command>c:\mozilla-build\msys\bin\bash -xe ./run-media-source-web-platform.sh win32 http://10.252.26.236:8080/job/firefox-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.zip http://10.252.26.236:8080/job/tests-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.common.tests.zip http://10.252.26.236:8080/job/tests-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.web-platform.tests.zip
+      <command>c:\mozilla-build\msys\bin\bash -xe ./run-media-source-web-platform.sh win32 http://192.168.0.7:8080/job/firefox-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.zip http://192.168.0.7:8080/job/tests-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.common.tests.zip http://192.168.0.7:8080/job/tests-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.web-platform.tests.zip
 </command>
       <ignoreExitCode>false</ignoreExitCode>
     </jenkins.plugins.shiningpanda.builders.VirtualenvBuilder>
@@ -106,13 +105,13 @@
       <configuredTriggers>
         <hudson.plugins.emailext.plugins.trigger.FailureTrigger>
           <email>
-            <recipientList></recipientList>
+            <recipientList/>
             <subject>$PROJECT_DEFAULT_SUBJECT</subject>
             <body>$PROJECT_DEFAULT_CONTENT</body>
             <recipientProviders>
               <hudson.plugins.emailext.plugins.recipients.ListRecipientProvider/>
             </recipientProviders>
-            <attachmentsPattern></attachmentsPattern>
+            <attachmentsPattern/>
             <attachBuildLog>false</attachBuildLog>
             <compressBuildLog>false</compressBuildLog>
             <replyTo>$PROJECT_DEFAULT_REPLYTO</replyTo>
@@ -134,4 +133,3 @@
   </publishers>
   <buildWrappers/>
 </project>
-

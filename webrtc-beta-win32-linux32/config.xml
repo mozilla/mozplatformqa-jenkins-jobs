@@ -1,7 +1,6 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<project>
+<?xml version="1.0" encoding="UTF-8"?><project>
   <actions/>
-  <description></description>
+  <description/>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>1</daysToKeep>
     <numToKeep>10</numToKeep>
@@ -62,8 +61,8 @@
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
     <jenkins.triggers.ReverseBuildTrigger>
-      <spec></spec>
-      <upstreamProjects>trigger-firefox-beta-win32,trigger-firefox-beta-linux32,expand-tests-beta-linux64</upstreamProjects>
+      <spec/>
+      <upstreamProjects/>
       <threshold>
         <name>SUCCESS</name>
         <ordinal>0</ordinal>
@@ -79,7 +78,7 @@
       <spec>H * * * *</spec>
       <entries>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
-          <url>http://10.252.26.236:8080/job/firefox-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.zip</url>
+          <url>http://192.168.0.7:8080/job/firefox-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.zip</url>
           <proxyActivated>false</proxyActivated>
           <checkStatus>false</checkStatus>
           <statusCode>200</statusCode>
@@ -90,7 +89,7 @@
           <contentTypes/>
         </org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
-          <url>http://10.252.26.236:8080/job/firefox-beta-linux32/ws/releases/firefox-latest-beta.en-US.linux-i686.tar.bz2</url>
+          <url>http://192.168.0.7:8080/job/firefox-beta-linux32/ws/releases/firefox-latest-beta.en-US.linux-i686.tar.bz2</url>
           <proxyActivated>false</proxyActivated>
           <checkStatus>false</checkStatus>
           <statusCode>200</statusCode>
@@ -122,12 +121,12 @@ MACHINE2=$LINUX32_1
 ARCH2=i686
 OS2=linux-32
 
-curl http://10.252.26.236:8080/job/firefox-beta-win32/ws/releases/$PACKAGE1 &gt; $PACKAGE1
-curl http://10.252.26.236:8080/job/firefox-beta-win32/ws/releases/$BUILD_FILE1 &gt; $BUILD_FILE1
+curl http://192.168.0.7:8080/job/firefox-beta-win32/ws/releases/$PACKAGE1 &gt; $PACKAGE1
+curl http://192.168.0.7:8080/job/firefox-beta-win32/ws/releases/$BUILD_FILE1 &gt; $BUILD_FILE1
 
 if [ "$PACKAGE1" != "$PACKAGE2" ] ; then
-    curl http://10.252.26.236:8080/job/firefox-beta-linux32/ws/releases/$PACKAGE2 &gt; $PACKAGE2
-    curl http://10.252.26.236:8080/job/firefox-beta-linux32/ws/releases/$BUILD_FILE2 &gt; $BUILD_FILE2
+    curl http://192.168.0.7:8080/job/firefox-beta-linux32/ws/releases/$PACKAGE2 &gt; $PACKAGE2
+    curl http://192.168.0.7:8080/job/firefox-beta-linux32/ws/releases/$BUILD_FILE2 &gt; $BUILD_FILE2
 fi
 
 python `pwd`/mozplatformqa-jenkins/jenkinsherder.py --steeplechase `pwd`/steeplechase/steeplechase/runsteeplechase.py --package $PACKAGE1 --package2 $PACKAGE2 --save-logs-to `pwd`/logs --specialpowers-path /home/mozilla/firefoxes/beta/linux64/tests/steeplechase/specialpowers --prefs-file /home/mozilla/firefoxes/beta/linux64/tests/steeplechase/prefs_general.js --signalling-server $SIGNALLING_SERVER --html-manifest /home/mozilla/firefoxes/beta/linux64/tests/steeplechase/tests/dom/media/tests/mochitest/steeplechase.ini --host1 $MACHINE1:20701 --arch1 $ARCH1 --host2 $MACHINE2:20701 --arch2 $ARCH2 --os1 $OS1 --os2 $OS2 --treeherder-url $TREEHERDER_URL --treeherder-credentials-path $TREEHERDER_CREDENTIALS
@@ -140,13 +139,13 @@ python `pwd`/mozplatformqa-jenkins/jenkinsherder.py --steeplechase `pwd`/steeple
       <configuredTriggers>
         <hudson.plugins.emailext.plugins.trigger.FailureTrigger>
           <email>
-            <recipientList></recipientList>
+            <recipientList/>
             <subject>$PROJECT_DEFAULT_SUBJECT</subject>
             <body>$PROJECT_DEFAULT_CONTENT</body>
             <recipientProviders>
               <hudson.plugins.emailext.plugins.recipients.ListRecipientProvider/>
             </recipientProviders>
-            <attachmentsPattern></attachmentsPattern>
+            <attachmentsPattern/>
             <attachBuildLog>false</attachBuildLog>
             <compressBuildLog>false</compressBuildLog>
             <replyTo>$PROJECT_DEFAULT_REPLYTO</replyTo>
@@ -155,13 +154,13 @@ python `pwd`/mozplatformqa-jenkins/jenkinsherder.py --steeplechase `pwd`/steeple
         </hudson.plugins.emailext.plugins.trigger.FailureTrigger>
         <hudson.plugins.emailext.plugins.trigger.FixedTrigger>
           <email>
-            <recipientList></recipientList>
+            <recipientList/>
             <subject>$PROJECT_DEFAULT_SUBJECT</subject>
             <body>$PROJECT_DEFAULT_CONTENT</body>
             <recipientProviders>
               <hudson.plugins.emailext.plugins.recipients.ListRecipientProvider/>
             </recipientProviders>
-            <attachmentsPattern></attachmentsPattern>
+            <attachmentsPattern/>
             <attachBuildLog>false</attachBuildLog>
             <compressBuildLog>false</compressBuildLog>
             <replyTo>$PROJECT_DEFAULT_REPLYTO</replyTo>
@@ -170,13 +169,13 @@ python `pwd`/mozplatformqa-jenkins/jenkinsherder.py --steeplechase `pwd`/steeple
         </hudson.plugins.emailext.plugins.trigger.FixedTrigger>
         <hudson.plugins.emailext.plugins.trigger.AbortedTrigger>
           <email>
-            <recipientList></recipientList>
+            <recipientList/>
             <subject>$PROJECT_DEFAULT_SUBJECT</subject>
             <body>$PROJECT_DEFAULT_CONTENT</body>
             <recipientProviders>
               <hudson.plugins.emailext.plugins.recipients.ListRecipientProvider/>
             </recipientProviders>
-            <attachmentsPattern></attachmentsPattern>
+            <attachmentsPattern/>
             <attachBuildLog>false</attachBuildLog>
             <compressBuildLog>false</compressBuildLog>
             <replyTo>$PROJECT_DEFAULT_REPLYTO</replyTo>
@@ -185,13 +184,13 @@ python `pwd`/mozplatformqa-jenkins/jenkinsherder.py --steeplechase `pwd`/steeple
         </hudson.plugins.emailext.plugins.trigger.AbortedTrigger>
         <hudson.plugins.emailext.plugins.trigger.StatusChangedTrigger>
           <email>
-            <recipientList></recipientList>
+            <recipientList/>
             <subject>$PROJECT_DEFAULT_SUBJECT</subject>
             <body>$PROJECT_DEFAULT_CONTENT</body>
             <recipientProviders>
               <hudson.plugins.emailext.plugins.recipients.ListRecipientProvider/>
             </recipientProviders>
-            <attachmentsPattern></attachmentsPattern>
+            <attachmentsPattern/>
             <attachBuildLog>false</attachBuildLog>
             <compressBuildLog>false</compressBuildLog>
             <replyTo>$PROJECT_DEFAULT_REPLYTO</replyTo>
@@ -202,7 +201,7 @@ python `pwd`/mozplatformqa-jenkins/jenkinsherder.py --steeplechase `pwd`/steeple
       <contentType>default</contentType>
       <defaultSubject>$DEFAULT_SUBJECT</defaultSubject>
       <defaultContent>$DEFAULT_CONTENT</defaultContent>
-      <attachmentsPattern></attachmentsPattern>
+      <attachmentsPattern/>
       <presendScript>$DEFAULT_PRESEND_SCRIPT</presendScript>
       <attachBuildLog>false</attachBuildLog>
       <compressBuildLog>false</compressBuildLog>

@@ -10,9 +10,9 @@
   </logRotator>
   <keepDependencies>false</keepDependencies>
   <properties/>
-  <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.3">
+  <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.5">
     <scms>
-      <hudson.plugins.git.GitSCM plugin="git@2.3">
+      <hudson.plugins.git.GitSCM plugin="git@2.4.0">
         <configVersion>2</configVersion>
         <userRemoteConfigs>
           <hudson.plugins.git.UserRemoteConfig>
@@ -33,7 +33,7 @@
           </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
         </extensions>
       </hudson.plugins.git.GitSCM>
-      <hudson.plugins.git.GitSCM plugin="git@2.3">
+      <hudson.plugins.git.GitSCM plugin="git@2.4.0">
         <configVersion>2</configVersion>
         <userRemoteConfigs>
           <hudson.plugins.git.UserRemoteConfig>
@@ -57,7 +57,7 @@
   </scm>
   <assignedNode>steeplechase</assignedNode>
   <canRoam>false</canRoam>
-  <disabled>true</disabled>
+  <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
@@ -75,11 +75,11 @@
       <spec>H * * * *</spec>
       <ignorePostCommitHooks>true</ignorePostCommitHooks>
     </hudson.triggers.SCMTrigger>
-    <org.jenkinsci.plugins.urltrigger.URLTrigger plugin="urltrigger@0.37">
+    <org.jenkinsci.plugins.urltrigger.URLTrigger plugin="urltrigger@0.40">
       <spec>H * * * *</spec>
       <entries>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
-          <url>http://10.252.26.236:8080/job/firefox-aurora-mac/ws/releases/firefox-latest-aurora.en-US.mac.dmg</url>
+          <url>http://192.168.0.7:8080/job/firefox-aurora-mac/ws/releases/firefox-latest-aurora.en-US.mac.dmg</url>
           <proxyActivated>false</proxyActivated>
           <checkStatus>false</checkStatus>
           <statusCode>200</statusCode>
@@ -90,7 +90,7 @@
           <contentTypes/>
         </org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
-          <url>http://10.252.26.236:8080/job/firefox-nightly-win64/ws/releases/firefox-latest-nightly.en-US.win64.zip</url>
+          <url>http://192.168.0.7:8080/job/firefox-nightly-win64/ws/releases/firefox-latest-nightly.en-US.win64.zip</url>
           <proxyActivated>false</proxyActivated>
           <checkStatus>false</checkStatus>
           <statusCode>200</statusCode>
@@ -122,12 +122,12 @@ MACHINE2=$WIN64_1
 ARCH2=x86_64
 OS2=win8-64
 
-curl http://10.252.26.236:8080/job/firefox-aurora-mac/ws/releases/$PACKAGE1 &gt; $PACKAGE1
-curl http://10.252.26.236:8080/job/firefox-aurora-mac/ws/releases/$BUILD_FILE1 &gt; $BUILD_FILE1
+curl http://192.168.0.7:8080/job/firefox-aurora-mac/ws/releases/$PACKAGE1 &gt; $PACKAGE1
+curl http://192.168.0.7:8080/job/firefox-aurora-mac/ws/releases/$BUILD_FILE1 &gt; $BUILD_FILE1
 
-if [ "$PACKAGE1" != "$PACKAGE2" ] ; then
-    curl http://10.252.26.236:8080/job/firefox-nightly-win64/ws/releases/$PACKAGE2 &gt; $PACKAGE2
-    curl http://10.252.26.236:8080/job/firefox-nightly-win64/ws/releases/$BUILD_FILE2 &gt; $BUILD_FILE2
+if [ &quot;$PACKAGE1&quot; != &quot;$PACKAGE2&quot; ] ; then
+    curl http://192.168.0.7:8080/job/firefox-nightly-win64/ws/releases/$PACKAGE2 &gt; $PACKAGE2
+    curl http://192.168.0.7:8080/job/firefox-nightly-win64/ws/releases/$BUILD_FILE2 &gt; $BUILD_FILE2
 fi
 
 python `pwd`/mozplatformqa-jenkins/jenkinsherder.py --steeplechase `pwd`/steeplechase/steeplechase/runsteeplechase.py --package $PACKAGE1 --package2 $PACKAGE2 --save-logs-to `pwd`/logs --specialpowers-path /home/mozilla/firefoxes/aurora/linux64/tests/steeplechase/specialpowers --prefs-file /home/mozilla/firefoxes/aurora/linux64/tests/steeplechase/prefs_general.js --signalling-server $SIGNALLING_SERVER --html-manifest /home/mozilla/firefoxes/aurora/linux64/tests/steeplechase/tests/dom/media/tests/mochitest/steeplechase.ini --host1 $MACHINE1:20701 --arch1 $ARCH1 --host2 $MACHINE2:20701 --arch2 $ARCH2 --os1 $OS1 --os2 $OS2 --treeherder-url $TREEHERDER_URL --treeherder-credentials-path $TREEHERDER_CREDENTIALS
@@ -135,7 +135,7 @@ python `pwd`/mozplatformqa-jenkins/jenkinsherder.py --steeplechase `pwd`/steeple
     </hudson.tasks.Shell>
   </builders>
   <publishers>
-    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.39">
+    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.40.5">
       <recipientList>$DEFAULT_RECIPIENTS</recipientList>
       <configuredTriggers>
         <hudson.plugins.emailext.plugins.trigger.FailureTrigger>

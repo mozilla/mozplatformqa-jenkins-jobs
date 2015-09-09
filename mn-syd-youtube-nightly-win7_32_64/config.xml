@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?><project>
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
   <actions/>
-  <description/>
+  <description></description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>10</daysToKeep>
     <numToKeep>30</numToKeep>
@@ -13,28 +14,33 @@
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>http://github.com/sydvicious/mozplatformqa-jenkins.git</url>
-        <credentialsId>337b81f4-cb01-4443-a97f-d11e9457957f</credentialsId>
+        <url>https://github.com/sydvicious/firefox-media-tests.git</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
       <hudson.plugins.git.BranchSpec>
-        <name>*/master</name>
+        <name>*/pf-jenkins</name>
       </hudson.plugins.git.BranchSpec>
     </branches>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
     <submoduleCfg class="list"/>
-    <extensions/>
+    <extensions>
+      <hudson.plugins.git.extensions.impl.SubmoduleOption>
+        <disableSubmodules>false</disableSubmodules>
+        <recursiveSubmodules>true</recursiveSubmodules>
+        <trackingSubmodules>false</trackingSubmodules>
+      </hudson.plugins.git.extensions.impl.SubmoduleOption>
+    </extensions>
   </scm>
-  <assignedNode>mse &amp;&amp; win32 &amp;&amp; win</assignedNode>
+  <assignedNode>win64 &amp;&amp; win7</assignedNode>
   <canRoam>false</canRoam>
-  <disabled>true</disabled>
+  <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
     <jenkins.triggers.ReverseBuildTrigger>
-      <spec/>
-      <upstreamProjects/>
+      <spec></spec>
+      <upstreamProjects>trigger-firefox-nightly-win32</upstreamProjects>
       <threshold>
         <name>SUCCESS</name>
         <ordinal>0</ordinal>
@@ -42,37 +48,22 @@
         <completeBuild>true</completeBuild>
       </threshold>
     </jenkins.triggers.ReverseBuildTrigger>
-    <hudson.triggers.SCMTrigger>
-      <spec>H/3 * * * *</spec>
-      <ignorePostCommitHooks>false</ignorePostCommitHooks>
-    </hudson.triggers.SCMTrigger>
     <org.jenkinsci.plugins.urltrigger.URLTrigger plugin="urltrigger@0.40">
       <spec>H * * * *</spec>
       <entries>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
-          <url>http://192.168.0.7:8080/job/firefox-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.zip</url>
+          <url>http://192.168.254.202:8080/job/firefox-nightly-win32/ws/releases/firefox-latest-nightly.en-US.win32.zip</url>
           <proxyActivated>false</proxyActivated>
           <checkStatus>false</checkStatus>
           <statusCode>200</statusCode>
           <timeout>300</timeout>
           <checkETag>false</checkETag>
-          <checkLastModificationDate>true</checkLastModificationDate>
+          <checkLastModificationDate>false</checkLastModificationDate>
           <inspectingContent>false</inspectingContent>
           <contentTypes/>
         </org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
-          <url>http://192.168.0.7:8080/job/tests-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.common.tests.zip</url>
-          <proxyActivated>false</proxyActivated>
-          <checkStatus>false</checkStatus>
-          <statusCode>200</statusCode>
-          <timeout>300</timeout>
-          <checkETag>false</checkETag>
-          <checkLastModificationDate>true</checkLastModificationDate>
-          <inspectingContent>false</inspectingContent>
-          <contentTypes/>
-        </org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
-        <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
-          <url>http://192.168.0.7:8080/job/tests-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.web-platform.tests.zip</url>
+          <url>http://192.168.254.202:8080/job/symbols-nightly-win32/ws/releases/firefox-latest-nightly.en-US.win32.crashreporter-symbols.zip</url>
           <proxyActivated>false</proxyActivated>
           <checkStatus>false</checkStatus>
           <statusCode>200</statusCode>
@@ -88,30 +79,23 @@
   </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <jenkins.plugins.shiningpanda.builders.VirtualenvBuilder plugin="shiningpanda@0.21">
-      <pythonName>Win-Moz-Python</pythonName>
-      <home>jenkinspy</home>
-      <clear>true</clear>
-      <systemSitePackages>false</systemSitePackages>
-      <nature>shell</nature>
-      <command>c:\mozilla-build\msys\bin\bash -xe ./run-media-source-web-platform.sh win32 http://192.168.0.7:8080/job/firefox-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.zip http://192.168.0.7:8080/job/tests-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.common.tests.zip http://192.168.0.7:8080/job/tests-beta-win32/ws/releases/firefox-latest-beta.en-US.win32.web-platform.tests.zip
-</command>
-      <ignoreExitCode>false</ignoreExitCode>
-    </jenkins.plugins.shiningpanda.builders.VirtualenvBuilder>
+    <hudson.tasks.BatchFile>
+      <command>c:\mozilla-build\msys\bin\bash -xe -c &quot;export PATH=$MOZBUILDPATH; python ./run_media_tests.py --installer-url http://192.168.254.202:8080/job/firefox-nightly-win32/ws/releases/firefox-latest-nightly.en-US.win32.zip --symbols-url http://192.168.254.202:8080/job/symbols-nightly-win32/ws/releases/firefox-latest-nightly.en-US.win32.crashreporter-symbols.zip --profile=c:/testing/eme_profile --media-urls=./firefox_media_tests/urls/default.ini --test-timeout 10800; if [ $(grep --count &apos;Marionette: success&apos; logs/log_info.log) -eq &quot;0&quot; ]; then exit 1; fi&quot; </command>
+    </hudson.tasks.BatchFile>
   </builders>
   <publishers>
     <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.40.5">
-      <recipientList>$DEFAULT_RECIPIENTS</recipientList>
+      <recipientList>$DEFAULT_RECIPIENTS, maja@mozilla.com</recipientList>
       <configuredTriggers>
         <hudson.plugins.emailext.plugins.trigger.FailureTrigger>
           <email>
-            <recipientList/>
+            <recipientList></recipientList>
             <subject>$PROJECT_DEFAULT_SUBJECT</subject>
             <body>$PROJECT_DEFAULT_CONTENT</body>
             <recipientProviders>
               <hudson.plugins.emailext.plugins.recipients.ListRecipientProvider/>
             </recipientProviders>
-            <attachmentsPattern/>
+            <attachmentsPattern></attachmentsPattern>
             <attachBuildLog>false</attachBuildLog>
             <compressBuildLog>false</compressBuildLog>
             <replyTo>$PROJECT_DEFAULT_REPLYTO</replyTo>
@@ -122,13 +106,13 @@
       <contentType>default</contentType>
       <defaultSubject>$DEFAULT_SUBJECT</defaultSubject>
       <defaultContent>$DEFAULT_CONTENT</defaultContent>
-      <attachmentsPattern>**/test.log</attachmentsPattern>
+      <attachmentsPattern></attachmentsPattern>
       <presendScript>$DEFAULT_PRESEND_SCRIPT</presendScript>
       <attachBuildLog>true</attachBuildLog>
       <compressBuildLog>false</compressBuildLog>
       <replyTo>$DEFAULT_REPLYTO</replyTo>
       <saveOutput>false</saveOutput>
-      <disabled>false</disabled>
+      <disabled>true</disabled>
     </hudson.plugins.emailext.ExtendedEmailPublisher>
   </publishers>
   <buildWrappers/>

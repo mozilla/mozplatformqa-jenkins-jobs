@@ -10,7 +10,7 @@
   </logRotator>
   <keepDependencies>false</keepDependencies>
   <properties/>
-  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.4.0">
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
@@ -29,13 +29,13 @@
   </scm>
   <assignedNode>mse &amp;&amp; mac10-8</assignedNode>
   <canRoam>false</canRoam>
-  <disabled>true</disabled>
+  <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
     <jenkins.triggers.ReverseBuildTrigger>
       <spec></spec>
-      <upstreamProjects>trigger-firefox-aurora-mac, trigger-tests-aurora-mac</upstreamProjects>
+      <upstreamProjects>trigger-firefox-aurora-mac,trigger-tests-aurora-mac</upstreamProjects>
       <threshold>
         <name>SUCCESS</name>
         <ordinal>0</ordinal>
@@ -47,11 +47,11 @@
       <spec>H/3 * * * *</spec>
       <ignorePostCommitHooks>false</ignorePostCommitHooks>
     </hudson.triggers.SCMTrigger>
-    <org.jenkinsci.plugins.urltrigger.URLTrigger plugin="urltrigger@0.38">
+    <org.jenkinsci.plugins.urltrigger.URLTrigger plugin="urltrigger@0.40">
       <spec>H * * * *</spec>
       <entries>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
-          <url>http://10.252.26.236:8080/job/firefox-aurora-mac/ws/releases/firefox-latest-aurora.en-US.mac.dmg</url>
+          <url>http://192.168.0.7:8080/job/firefox-aurora-mac/ws/releases/firefox-latest-aurora.en-US.mac.dmg</url>
           <proxyActivated>false</proxyActivated>
           <checkStatus>false</checkStatus>
           <statusCode>200</statusCode>
@@ -62,7 +62,7 @@
           <contentTypes/>
         </org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
-          <url>http://10.252.26.236:8080/job/tests-aurora-mac/ws/releases/firefox-latest-aurora.en-US.mac.common.tests.zip</url>
+          <url>http://192.168.0.7:8080/job/tests-aurora-mac/ws/releases/firefox-latest-aurora.en-US.mac.common.tests.zip</url>
           <proxyActivated>false</proxyActivated>
           <checkStatus>false</checkStatus>
           <statusCode>200</statusCode>
@@ -73,7 +73,7 @@
           <contentTypes/>
         </org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
-          <url>http://10.252.26.236:8080/job/tests-aurora-mac/ws/releases/firefox-latest-aurora.en-US.mac.web-platform.tests.zip</url>
+          <url>http://192.168.0.7:8080/job/tests-aurora-mac/ws/releases/firefox-latest-aurora.en-US.mac.web-platform.tests.zip</url>
           <proxyActivated>false</proxyActivated>
           <checkStatus>false</checkStatus>
           <statusCode>200</statusCode>
@@ -89,13 +89,13 @@
   </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <jenkins.plugins.shiningpanda.builders.VirtualenvBuilder plugin="shiningpanda@0.21">
+    <jenkins.plugins.shiningpanda.builders.VirtualenvBuilder plugin="shiningpanda@0.22">
       <pythonName>System-CPython-2.7</pythonName>
       <home>jenkinspy</home>
       <clear>true</clear>
       <systemSitePackages>false</systemSitePackages>
       <nature>shell</nature>
-      <command>bash -xe ./run-media-source-web-platform.sh mac http://10.252.26.236:8080/job/firefox-aurora-mac/ws/releases/firefox-latest-aurora.en-US.mac.dmg http://10.252.26.236:8080/job/tests-aurora-mac/ws/releases/firefox-latest-aurora.en-US.mac.common.tests.zip http://10.252.26.236:8080/job/tests-aurora-mac/ws/releases/firefox-latest-aurora.en-US.mac.web-platform.tests.zip
+      <command>bash -xe ./run-media-source-web-platform.sh mac http://192.168.0.7:8080/job/firefox-aurora-mac/ws/releases/firefox-latest-aurora.en-US.mac.dmg http://192.168.0.7:8080/job/tests-aurora-mac/ws/releases/firefox-latest-aurora.en-US.mac.common.tests.zip http://192.168.0.7:8080/job/tests-aurora-mac/ws/releases/firefox-latest-aurora.en-US.mac.web-platform.tests.zip
 </command>
       <ignoreExitCode>false</ignoreExitCode>
     </jenkins.plugins.shiningpanda.builders.VirtualenvBuilder>
@@ -134,4 +134,3 @@
   </publishers>
   <buildWrappers/>
 </project>
-
