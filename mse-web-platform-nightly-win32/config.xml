@@ -27,7 +27,7 @@
     <submoduleCfg class="list"/>
     <extensions/>
   </scm>
-  <assignedNode>mse &amp;&amp; win32 &amp;&amp; mse &amp;&amp; win</assignedNode>
+  <assignedNode>mse &amp;&amp; win32 &amp;&amp; win</assignedNode>
   <canRoam>false</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
@@ -89,7 +89,7 @@
   </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <jenkins.plugins.shiningpanda.builders.VirtualenvBuilder plugin="shiningpanda@0.21">
+    <jenkins.plugins.shiningpanda.builders.VirtualenvBuilder plugin="shiningpanda@0.22">
       <pythonName>Win-Moz-Python</pythonName>
       <home>jenkinspy</home>
       <clear>true</clear>

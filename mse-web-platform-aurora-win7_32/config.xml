@@ -15,6 +15,7 @@
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
         <url>http://github.com/sydvicious/mozplatformqa-jenkins.git</url>
+        <credentialsId>337b81f4-cb01-4443-a97f-d11e9457957f</credentialsId>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
@@ -26,7 +27,7 @@
     <submoduleCfg class="list"/>
     <extensions/>
   </scm>
-  <assignedNode>mse &amp;&amp; win32 &amp;&amp; mse &amp;&amp; win7</assignedNode>
+  <assignedNode>mse &amp;&amp; win32 &amp;&amp; win7</assignedNode>
   <canRoam>false</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
@@ -88,7 +89,7 @@
   </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <jenkins.plugins.shiningpanda.builders.VirtualenvBuilder plugin="shiningpanda@0.21">
+    <jenkins.plugins.shiningpanda.builders.VirtualenvBuilder plugin="shiningpanda@0.22">
       <pythonName>Win-Moz-Python</pythonName>
       <home>jenkinspy</home>
       <clear>true</clear>

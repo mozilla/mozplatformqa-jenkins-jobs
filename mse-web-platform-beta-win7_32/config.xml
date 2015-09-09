@@ -1,7 +1,6 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<project>
+<?xml version="1.0" encoding="UTF-8"?><project>
   <actions/>
-  <description></description>
+  <description/>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>10</daysToKeep>
     <numToKeep>30</numToKeep>
@@ -27,15 +26,15 @@
     <submoduleCfg class="list"/>
     <extensions/>
   </scm>
-  <assignedNode>mse &amp;&amp; win32 &amp;&amp; mse &amp;&amp; win7</assignedNode>
+  <assignedNode>mse &amp;&amp; win32 &amp;&amp; win7</assignedNode>
   <canRoam>false</canRoam>
   <disabled>true</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
     <jenkins.triggers.ReverseBuildTrigger>
-      <spec></spec>
-      <upstreamProjects>trigger-firefox-beta-win32,trigger-tests-beta-win32</upstreamProjects>
+      <spec/>
+      <upstreamProjects/>
       <threshold>
         <name>SUCCESS</name>
         <ordinal>0</ordinal>
@@ -106,13 +105,13 @@
       <configuredTriggers>
         <hudson.plugins.emailext.plugins.trigger.FailureTrigger>
           <email>
-            <recipientList></recipientList>
+            <recipientList/>
             <subject>$PROJECT_DEFAULT_SUBJECT</subject>
             <body>$PROJECT_DEFAULT_CONTENT</body>
             <recipientProviders>
               <hudson.plugins.emailext.plugins.recipients.ListRecipientProvider/>
             </recipientProviders>
-            <attachmentsPattern></attachmentsPattern>
+            <attachmentsPattern/>
             <attachBuildLog>false</attachBuildLog>
             <compressBuildLog>false</compressBuildLog>
             <replyTo>$PROJECT_DEFAULT_REPLYTO</replyTo>

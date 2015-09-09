@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description></description>
+  <description>Delete temporary firefox profiles</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>30</daysToKeep>
     <numToKeep>30</numToKeep>

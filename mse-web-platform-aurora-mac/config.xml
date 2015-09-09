@@ -89,7 +89,7 @@
   </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <jenkins.plugins.shiningpanda.builders.VirtualenvBuilder plugin="shiningpanda@0.21">
+    <jenkins.plugins.shiningpanda.builders.VirtualenvBuilder plugin="shiningpanda@0.22">
       <pythonName>System-CPython-2.7</pythonName>
       <home>jenkinspy</home>
       <clear>true</clear>
