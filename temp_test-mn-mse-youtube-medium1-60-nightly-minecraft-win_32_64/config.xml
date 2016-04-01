@@ -44,7 +44,7 @@ This 20-minute video causes failures due to a premature&#xd;
   </scm>
   <assignedNode>win64 &amp;&amp; win81</assignedNode>
   <canRoam>false</canRoam>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers/>

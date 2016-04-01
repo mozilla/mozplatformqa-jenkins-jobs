@@ -1,7 +1,6 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<project>
+<?xml version="1.0" encoding="UTF-8"?><project>
   <actions/>
-  <description></description>
+  <description/>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>1</daysToKeep>
     <numToKeep>10</numToKeep>
@@ -10,9 +9,9 @@
   </logRotator>
   <keepDependencies>false</keepDependencies>
   <properties/>
-  <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.5">
+  <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.3">
     <scms>
-      <hudson.plugins.git.GitSCM plugin="git@2.4.0">
+      <hudson.plugins.git.GitSCM plugin="git@2.3">
         <configVersion>2</configVersion>
         <userRemoteConfigs>
           <hudson.plugins.git.UserRemoteConfig>
@@ -33,7 +32,7 @@
           </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
         </extensions>
       </hudson.plugins.git.GitSCM>
-      <hudson.plugins.git.GitSCM plugin="git@2.4.0">
+      <hudson.plugins.git.GitSCM plugin="git@2.3">
         <configVersion>2</configVersion>
         <userRemoteConfigs>
           <hudson.plugins.git.UserRemoteConfig>
@@ -61,11 +60,21 @@
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
+    <jenkins.triggers.ReverseBuildTrigger>
+      <spec/>
+      <upstreamProjects/>
+      <threshold>
+        <name>SUCCESS</name>
+        <ordinal>0</ordinal>
+        <color>BLUE</color>
+        <completeBuild>true</completeBuild>
+      </threshold>
+    </jenkins.triggers.ReverseBuildTrigger>
     <hudson.triggers.SCMTrigger>
       <spec>H * * * *</spec>
       <ignorePostCommitHooks>true</ignorePostCommitHooks>
     </hudson.triggers.SCMTrigger>
-    <org.jenkinsci.plugins.urltrigger.URLTrigger plugin="urltrigger@0.40">
+    <org.jenkinsci.plugins.urltrigger.URLTrigger plugin="urltrigger@0.37">
       <spec>H * * * *</spec>
       <entries>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
@@ -115,7 +124,7 @@ OS2=mac-10.10
 curl http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-beta-mac/ws/releases/$PACKAGE1 &gt; $PACKAGE1
 curl http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-beta-mac/ws/releases/$BUILD_FILE1 &gt; $BUILD_FILE1
 
-if [ &quot;$PACKAGE1&quot; != &quot;$PACKAGE2&quot; ] ; then
+if [ "$PACKAGE1" != "$PACKAGE2" ] ; then
     curl http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-nightly-mac/ws/releases/$PACKAGE2 &gt; $PACKAGE2
     curl http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-nightly-mac/ws/releases/$BUILD_FILE2 &gt; $BUILD_FILE2
 fi
@@ -125,18 +134,18 @@ python `pwd`/mozplatformqa-jenkins/jenkinsherder.py --steeplechase `pwd`/steeple
     </hudson.tasks.Shell>
   </builders>
   <publishers>
-    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.40.5">
+    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.39">
       <recipientList>$DEFAULT_RECIPIENTS</recipientList>
       <configuredTriggers>
         <hudson.plugins.emailext.plugins.trigger.FailureTrigger>
           <email>
-            <recipientList></recipientList>
+            <recipientList/>
             <subject>$PROJECT_DEFAULT_SUBJECT</subject>
             <body>$PROJECT_DEFAULT_CONTENT</body>
             <recipientProviders>
               <hudson.plugins.emailext.plugins.recipients.ListRecipientProvider/>
             </recipientProviders>
-            <attachmentsPattern></attachmentsPattern>
+            <attachmentsPattern/>
             <attachBuildLog>false</attachBuildLog>
             <compressBuildLog>false</compressBuildLog>
             <replyTo>$PROJECT_DEFAULT_REPLYTO</replyTo>
@@ -145,13 +154,13 @@ python `pwd`/mozplatformqa-jenkins/jenkinsherder.py --steeplechase `pwd`/steeple
         </hudson.plugins.emailext.plugins.trigger.FailureTrigger>
         <hudson.plugins.emailext.plugins.trigger.FixedTrigger>
           <email>
-            <recipientList></recipientList>
+            <recipientList/>
             <subject>$PROJECT_DEFAULT_SUBJECT</subject>
             <body>$PROJECT_DEFAULT_CONTENT</body>
             <recipientProviders>
               <hudson.plugins.emailext.plugins.recipients.ListRecipientProvider/>
             </recipientProviders>
-            <attachmentsPattern></attachmentsPattern>
+            <attachmentsPattern/>
             <attachBuildLog>false</attachBuildLog>
             <compressBuildLog>false</compressBuildLog>
             <replyTo>$PROJECT_DEFAULT_REPLYTO</replyTo>
@@ -160,13 +169,13 @@ python `pwd`/mozplatformqa-jenkins/jenkinsherder.py --steeplechase `pwd`/steeple
         </hudson.plugins.emailext.plugins.trigger.FixedTrigger>
         <hudson.plugins.emailext.plugins.trigger.AbortedTrigger>
           <email>
-            <recipientList></recipientList>
+            <recipientList/>
             <subject>$PROJECT_DEFAULT_SUBJECT</subject>
             <body>$PROJECT_DEFAULT_CONTENT</body>
             <recipientProviders>
               <hudson.plugins.emailext.plugins.recipients.ListRecipientProvider/>
             </recipientProviders>
-            <attachmentsPattern></attachmentsPattern>
+            <attachmentsPattern/>
             <attachBuildLog>false</attachBuildLog>
             <compressBuildLog>false</compressBuildLog>
             <replyTo>$PROJECT_DEFAULT_REPLYTO</replyTo>
@@ -175,13 +184,13 @@ python `pwd`/mozplatformqa-jenkins/jenkinsherder.py --steeplechase `pwd`/steeple
         </hudson.plugins.emailext.plugins.trigger.AbortedTrigger>
         <hudson.plugins.emailext.plugins.trigger.StatusChangedTrigger>
           <email>
-            <recipientList></recipientList>
+            <recipientList/>
             <subject>$PROJECT_DEFAULT_SUBJECT</subject>
             <body>$PROJECT_DEFAULT_CONTENT</body>
             <recipientProviders>
               <hudson.plugins.emailext.plugins.recipients.ListRecipientProvider/>
             </recipientProviders>
-            <attachmentsPattern></attachmentsPattern>
+            <attachmentsPattern/>
             <attachBuildLog>false</attachBuildLog>
             <compressBuildLog>false</compressBuildLog>
             <replyTo>$PROJECT_DEFAULT_REPLYTO</replyTo>
@@ -192,7 +201,7 @@ python `pwd`/mozplatformqa-jenkins/jenkinsherder.py --steeplechase `pwd`/steeple
       <contentType>default</contentType>
       <defaultSubject>$DEFAULT_SUBJECT</defaultSubject>
       <defaultContent>$DEFAULT_CONTENT</defaultContent>
-      <attachmentsPattern></attachmentsPattern>
+      <attachmentsPattern/>
       <presendScript>$DEFAULT_PRESEND_SCRIPT</presendScript>
       <attachBuildLog>false</attachBuildLog>
       <compressBuildLog>false</compressBuildLog>

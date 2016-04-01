@@ -1,35 +1,36 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description></description>
-  <logRotator class="hudson.tasks.LogRotator">
-    <daysToKeep>10</daysToKeep>
-    <numToKeep>30</numToKeep>
-    <artifactDaysToKeep>-1</artifactDaysToKeep>
-    <artifactNumToKeep>-1</artifactNumToKeep>
-  </logRotator>
+  <description>Now running external-media-tests.</description>
   <keepDependencies>false</keepDependencies>
-  <properties/>
-  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.4.0">
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>10</daysToKeep>
+        <numToKeep>30</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>-1</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.4.2">
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>https://github.com/mjzffr/firefox-media-tests.git</url>
+        <url>https://github.com/sydvicious/mozplatformqa-jenkins.git</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
       <hudson.plugins.git.BranchSpec>
-        <name>*/pf-jenkins</name>
+        <name>*/master</name>
       </hudson.plugins.git.BranchSpec>
     </branches>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
     <submoduleCfg class="list"/>
     <extensions>
-      <hudson.plugins.git.extensions.impl.SubmoduleOption>
-        <disableSubmodules>false</disableSubmodules>
-        <recursiveSubmodules>true</recursiveSubmodules>
-        <trackingSubmodules>false</trackingSubmodules>
-      </hudson.plugins.git.extensions.impl.SubmoduleOption>
+      <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+        <relativeTargetDir>mozplatformqa-jenkins</relativeTargetDir>
+      </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
     </extensions>
   </scm>
   <assignedNode>win64 &amp;&amp; win7</assignedNode>
@@ -38,18 +39,12 @@
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
-    <jenkins.triggers.ReverseBuildTrigger>
-      <spec></spec>
-      <upstreamProjects>trigger-firefox-nightly-win32</upstreamProjects>
-      <threshold>
-        <name>SUCCESS</name>
-        <ordinal>0</ordinal>
-        <color>BLUE</color>
-        <completeBuild>true</completeBuild>
-      </threshold>
-    </jenkins.triggers.ReverseBuildTrigger>
-    <org.jenkinsci.plugins.urltrigger.URLTrigger plugin="urltrigger@0.40">
+    <hudson.triggers.SCMTrigger>
       <spec>H * * * *</spec>
+      <ignorePostCommitHooks>false</ignorePostCommitHooks>
+    </hudson.triggers.SCMTrigger>
+    <org.jenkinsci.plugins.urltrigger.URLTrigger plugin="urltrigger@0.41">
+      <spec>H H * * *</spec>
       <entries>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
           <url>http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-nightly-win32/ws/releases/firefox-latest-nightly.en-US.win32.zip</url>
@@ -58,7 +53,29 @@
           <statusCode>200</statusCode>
           <timeout>300</timeout>
           <checkETag>false</checkETag>
-          <checkLastModificationDate>false</checkLastModificationDate>
+          <checkLastModificationDate>true</checkLastModificationDate>
+          <inspectingContent>false</inspectingContent>
+          <contentTypes/>
+        </org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
+        <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
+          <url>http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/tests-nightly-win32/ws/releases/firefox-latest-nightly.en-US.win32.common.tests.zip</url>
+          <proxyActivated>false</proxyActivated>
+          <checkStatus>false</checkStatus>
+          <statusCode>200</statusCode>
+          <timeout>300</timeout>
+          <checkETag>false</checkETag>
+          <checkLastModificationDate>true</checkLastModificationDate>
+          <inspectingContent>false</inspectingContent>
+          <contentTypes/>
+        </org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
+        <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
+          <url>http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/mozharness-nightly/lastSuccessfulBuild/artifact/mozharness.tar.gz</url>
+          <proxyActivated>false</proxyActivated>
+          <checkStatus>false</checkStatus>
+          <statusCode>200</statusCode>
+          <timeout>300</timeout>
+          <checkETag>false</checkETag>
+          <checkLastModificationDate>true</checkLastModificationDate>
           <inspectingContent>false</inspectingContent>
           <contentTypes/>
         </org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
@@ -69,12 +86,25 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.BatchFile>
-      <command>c:\mozilla-build\msys\bin\bash -xe -c &quot;export PATH=$MOZBUILDPATH; python ./run_media_tests.py --installer-url http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-nightly-win32/ws/releases/firefox-latest-nightly.en-US.win32.zip --symbols-url http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/symbols-nightly-win32/ws/releases/firefox-latest-nightly.en-US.win32.crashreporter-symbols.zip --test-timeout 2000 --media-urls ./firefox_media_tests/urls/youtube/medium1-60.ini -c config/treeherder_submission.py --log-level=debug --job-name=&apos;MSE YouTube Playback Medium1 60min&apos; --job-symbol=ym1-60 --tests ./firefox_media_tests/playback/youtube/manifest.ini --treeherder-url=&apos;https://treeherder.mozilla.org/&apos; --treeherder-credentials=$TREEHERDER_CONFIG/treeherder-production-credentials.json --s3-credentials=$TREEHERDER_CONFIG/s3-credentials.json; if [ $(grep --count &apos;Marionette: success&apos; logs/log_info.log) -eq &quot;0&quot; ]; then exit 1; fi&quot; </command>
+      <command>c:\mozilla-build\wget\wget -Omozharness.tar.gz --tries=3 --waitretry=3 http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/mozharness-nightly/lastSuccessfulBuild/artifact/mozharness.tar.gz&#xd;
+&#xd;
+c:\mozilla-build\msys\bin\bash -xe -c &quot;export PATH=$MOZBUILDPATH; tar xvfz mozharness.tar.gz&quot;&#xd;
+&#xd;
+c:\mozilla-build\msys\bin\bash -xe -c &quot;export PATH=$MOZBUILDPATH; python ./mozplatformqa-jenkins/external-media-tests/run_media_tests.py --cfg ./mozplatformqa-jenkins/external-media-tests/config/pf-jenkins-config.py --installer-url http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-nightly-win32/ws/releases/firefox-latest-nightly.en-US.win32.zip --test-url=http://pf-jenkins.qa.mtv2.mozilla.com:8080/view/tests/job/tests-nightly-win32/ws/releases/firefox-latest-nightly.en-US.win32.common.tests.zip --job-name=&apos;MSE YouTube Playback Medium1 60min&apos; --job-symbol=ym1-60 --test-timeout 2000 --media-urls $WORKSPACE/build/tests/external-media-tests/external_media_tests/urls/youtube/medium1-60.ini -c mozplatformqa-jenkins/external-media-tests/config/treeherder_submission.py --log-level=debug --treeherder-url=&apos;https://treeherder.mozilla.org/&apos; --treeherder-credentials=$TREEHERDER_CONFIG/treeherder-production-credentials.json --s3-credentials=$TREEHERDER_CONFIG/s3-credentials.json --tests $WORKSPACE/build/tests/external-media-tests/external_media_tests/playback/youtube/manifest.ini; if [ $(grep --count &apos;Marionette: success&apos; logs/log_info.log) -eq &quot;0&quot; ]; then exit 1; fi&quot;&#xd;
+</command>
     </hudson.tasks.BatchFile>
   </builders>
   <publishers>
-    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.40.5">
-      <recipientList>$DEFAULT_RECIPIENTS, maja@mozilla.com</recipientList>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>logs/**</artifacts>
+      <allowEmptyArchive>false</allowEmptyArchive>
+      <onlyIfSuccessful>false</onlyIfSuccessful>
+      <fingerprint>false</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+      <caseSensitive>true</caseSensitive>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.41.2">
+      <recipientList>$DEFAULT_RECIPIENTS, $MEDIA_RECIPIENTS</recipientList>
       <configuredTriggers>
         <hudson.plugins.emailext.plugins.trigger.FailureTrigger>
           <email>
@@ -91,6 +121,21 @@
             <contentType>project</contentType>
           </email>
         </hudson.plugins.emailext.plugins.trigger.FailureTrigger>
+        <hudson.plugins.emailext.plugins.trigger.FixedTrigger>
+          <email>
+            <recipientList></recipientList>
+            <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+            <body>$PROJECT_DEFAULT_CONTENT</body>
+            <recipientProviders>
+              <hudson.plugins.emailext.plugins.recipients.ListRecipientProvider/>
+            </recipientProviders>
+            <attachmentsPattern></attachmentsPattern>
+            <attachBuildLog>false</attachBuildLog>
+            <compressBuildLog>false</compressBuildLog>
+            <replyTo>$PROJECT_DEFAULT_REPLYTO</replyTo>
+            <contentType>project</contentType>
+          </email>
+        </hudson.plugins.emailext.plugins.trigger.FixedTrigger>
       </configuredTriggers>
       <contentType>default</contentType>
       <defaultSubject>$DEFAULT_SUBJECT</defaultSubject>

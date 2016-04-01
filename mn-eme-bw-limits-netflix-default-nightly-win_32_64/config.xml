@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Now running external-media-tests</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>10</daysToKeep>
+        <numToKeep>30</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>-1</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.4.2">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/sydvicious/mozplatformqa-jenkins.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions>
+      <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+        <relativeTargetDir>mozplatformqa-jenkins</relativeTargetDir>
+      </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+    </extensions>
+  </scm>
+  <assignedNode>win64 &amp;&amp; win</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <jenkins.triggers.ReverseBuildTrigger>
+      <spec></spec>
+      <upstreamProjects>trigger-firefox-nightly-win32, trigger-tests-nightly-win32, mozharness-nightly, </upstreamProjects>
+      <threshold>
+        <name>SUCCESS</name>
+        <ordinal>0</ordinal>
+        <color>BLUE</color>
+        <completeBuild>true</completeBuild>
+      </threshold>
+    </jenkins.triggers.ReverseBuildTrigger>
+    <org.jenkinsci.plugins.urltrigger.URLTrigger plugin="urltrigger@0.41">
+      <spec>H * * * *</spec>
+      <entries>
+        <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
+          <url>http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-nightly-win32/ws/releases/firefox-latest-nightly.en-US.win32.zip</url>
+          <proxyActivated>false</proxyActivated>
+          <checkStatus>false</checkStatus>
+          <statusCode>200</statusCode>
+          <timeout>300</timeout>
+          <checkETag>false</checkETag>
+          <checkLastModificationDate>false</checkLastModificationDate>
+          <inspectingContent>false</inspectingContent>
+          <contentTypes/>
+        </org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
+        <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
+          <url>http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/tests-nightly-win32/ws/releases/firefox-latest-nightly.en-US.win32.common.tests.zip</url>
+          <proxyActivated>false</proxyActivated>
+          <checkStatus>false</checkStatus>
+          <statusCode>200</statusCode>
+          <timeout>300</timeout>
+          <checkETag>false</checkETag>
+          <checkLastModificationDate>false</checkLastModificationDate>
+          <inspectingContent>false</inspectingContent>
+          <contentTypes/>
+        </org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
+        <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
+          <url>http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/mozharness-nightly/lastSuccessfulBuild/artifact/mozharness.tar.gz</url>
+          <proxyActivated>false</proxyActivated>
+          <checkStatus>false</checkStatus>
+          <statusCode>200</statusCode>
+          <timeout>300</timeout>
+          <checkETag>false</checkETag>
+          <checkLastModificationDate>false</checkLastModificationDate>
+          <inspectingContent>false</inspectingContent>
+          <contentTypes/>
+        </org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
+      </entries>
+      <labelRestriction>false</labelRestriction>
+    </org.jenkinsci.plugins.urltrigger.URLTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.BatchFile>
+      <command>c:\mozilla-build\wget\wget -Omozharness.tar.gz --tries=3 --waitretry=3 http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/mozharness-nightly/lastSuccessfulBuild/artifact/mozharness.tar.gz&#xd;
+&#xd;
+c:\mozilla-build\msys\bin\bash -xe -c &quot;export PATH=$MOZBUILDPATH; tar xvfz mozharness.tar.gz&quot;&#xd;
+&#xd;
+c:\mozilla-build\msys\bin\bash -xe -c &quot;export PATH=$MOZBUILDPATH; python ./mozplatformqa-jenkins/external-media-tests/run_media_tests.py --cfg ./mozplatformqa-jenkins/external-media-tests/config/pf-jenkins-config.py --installer-url http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/firefox-nightly-win32/ws/releases/firefox-latest-nightly.en-US.win32.zip --test-url=http://pf-jenkins.qa.mtv2.mozilla.com:8080/view/tests/job/tests-nightly-win32/ws/releases/firefox-latest-nightly.en-US.win32.common.tests.zip --test-timeout 300 -c mozplatformqa-jenkins/external-media-tests/config/treeherder_submission.py --log-level=debug --treeherder-url=&apos;https://treeherder.mozilla.org/&apos; --treeherder-credentials=$TREEHERDER_CONFIG/treeherder-production-credentials.json --s3-credentials=$TREEHERDER_CONFIG/s3-credentials.json --job-symbol e-bw --browsermob-script=/c/testing/browsermob-proxy-2.1.0-beta-2/bin/browsermob-proxy.bat --browsermob-port 999 --media-urls=$WORKSPACE/build/tests/external-media-tests/external_media_tests/urls/netflix/default.ini --tests=$WORKSPACE/build/tests/external-media-tests/external_media_tests/playback/netflix_limiting_bandwidth.ini --profile /c/testing/eme_profile; if [ $(grep --count &apos;Marionette: success&apos; logs/log_info.log) -eq &quot;0&quot; ]; then exit 1; fi&quot;&#xd;
+</command>
+    </hudson.tasks.BatchFile>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>logs/**</artifacts>
+      <allowEmptyArchive>false</allowEmptyArchive>
+      <onlyIfSuccessful>false</onlyIfSuccessful>
+      <fingerprint>false</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+      <caseSensitive>true</caseSensitive>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.41.2">
+      <recipientList>$DEFAULT_RECIPIENTS, $MEDIA_RECIPIENTS</recipientList>
+      <configuredTriggers>
+        <hudson.plugins.emailext.plugins.trigger.FailureTrigger>
+          <email>
+            <recipientList></recipientList>
+            <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+            <body>$PROJECT_DEFAULT_CONTENT</body>
+            <recipientProviders>
+              <hudson.plugins.emailext.plugins.recipients.ListRecipientProvider/>
+            </recipientProviders>
+            <attachmentsPattern></attachmentsPattern>
+            <attachBuildLog>false</attachBuildLog>
+            <compressBuildLog>false</compressBuildLog>
+            <replyTo>$PROJECT_DEFAULT_REPLYTO</replyTo>
+            <contentType>project</contentType>
+          </email>
+        </hudson.plugins.emailext.plugins.trigger.FailureTrigger>
+        <hudson.plugins.emailext.plugins.trigger.FixedTrigger>
+          <email>
+            <recipientList></recipientList>
+            <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+            <body>$PROJECT_DEFAULT_CONTENT</body>
+            <recipientProviders>
+              <hudson.plugins.emailext.plugins.recipients.ListRecipientProvider/>
+            </recipientProviders>
+            <attachmentsPattern></attachmentsPattern>
+            <attachBuildLog>false</attachBuildLog>
+            <compressBuildLog>false</compressBuildLog>
+            <replyTo>$PROJECT_DEFAULT_REPLYTO</replyTo>
+            <contentType>project</contentType>
+          </email>
+        </hudson.plugins.emailext.plugins.trigger.FixedTrigger>
+      </configuredTriggers>
+      <contentType>default</contentType>
+      <defaultSubject>$DEFAULT_SUBJECT</defaultSubject>
+      <defaultContent>$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
+
+Check console output at $BUILD_URL/console to view the results.
+
+Check HTML report at: $JOB_URL/ws/logs/media_tests.html
+
+Log excerpt:
+
+${BUILD_LOG_EXCERPT, start=&quot;^.*#{5} Running run_marionette_tests.*&quot;, end=&quot;^.*#{5} Finished run_marionette_tests.*$&quot;}
+
+Uploads:
+${BUILD_LOG_REGEX, regex=&quot;^.*post_request - url is.*&quot;, maxMatches=1}</defaultContent>
+      <attachmentsPattern>logs/media_tests_mach.log, logs/log_error.log, logs/log_debug.log</attachmentsPattern>
+      <presendScript>$DEFAULT_PRESEND_SCRIPT</presendScript>
+      <attachBuildLog>false</attachBuildLog>
+      <compressBuildLog>false</compressBuildLog>
+      <replyTo>$DEFAULT_REPLYTO</replyTo>
+      <saveOutput>false</saveOutput>
+      <disabled>false</disabled>
+    </hudson.plugins.emailext.ExtendedEmailPublisher>
+  </publishers>
+  <buildWrappers/>
+</project>
