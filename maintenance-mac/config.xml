@@ -2,6 +2,12 @@
 <project>
   <actions/>
   <description>Delete temp firefox profiles</description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>30</daysToKeep>
+    <numToKeep>30</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
   <keepDependencies>false</keepDependencies>
   <properties>
     <jenkins.model.BuildDiscarderProperty>
@@ -53,6 +59,7 @@
     <hudson.tasks.Shell>
       <command>rm -rf $TMPDIR/tmp*.mozrunner;
 rm -rf $TMPDIR/Selenium*;</command>
+find /Users/mozilla/jenkins/workspace -name &apos;*.pyc&apos;&quot;</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
