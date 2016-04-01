@@ -1,5 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<project>
+<?xml version="1.0" encoding="UTF-8"?><project>
   <actions/>
   <description>delete *.pyc files from all projects</description>
   <logRotator class="hudson.tasks.LogRotator">
@@ -49,7 +48,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.BatchFile>
-      <command>c:\mozilla-build\msys\bin\bash -xe -c &quot;/bin/find.exe /c/jenkins/workspace -name &apos;*.pyc&apos; -print -delete&quot;</command>
+      <command>c:\mozilla-build\msys\bin\bash -xe -c "/bin/find.exe /c/jenkins/workspace -name '*.pyc' -print -delete"</command>
     </hudson.tasks.BatchFile>
   </builders>
   <publishers/>

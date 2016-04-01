@@ -1,7 +1,6 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<project>
+<?xml version="1.0" encoding="UTF-8"?><project>
   <actions/>
-  <description></description>
+  <description/>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>10</daysToKeep>
     <numToKeep>30</numToKeep>
@@ -18,7 +17,7 @@
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
     <jenkins.triggers.ReverseBuildTrigger>
-      <spec></spec>
+      <spec/>
       <upstreamProjects>chrome-urls</upstreamProjects>
       <threshold>
         <name>SUCCESS</name>
@@ -49,7 +48,7 @@
   <builders>
     <hudson.tasks.Shell>
       <command>#!/bin/bash -x
-URL=`wget -O - http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/chrome-urls/ws/chrome_urls.txt | grep mac | grep beta | cut -d &apos;,&apos; -f 4`
+URL=`wget -O - http://pf-jenkins.qa.mtv2.mozilla.com:8080/job/chrome-urls/ws/chrome_urls.txt | grep mac | grep beta | cut -d ',' -f 4`
 wget -q -O chrome_mac_beta.dmg $URL</command>
     </hudson.tasks.Shell>
   </builders>
@@ -59,13 +58,13 @@ wget -q -O chrome_mac_beta.dmg $URL</command>
       <configuredTriggers>
         <hudson.plugins.emailext.plugins.trigger.FailureTrigger>
           <email>
-            <recipientList></recipientList>
+            <recipientList/>
             <subject>$PROJECT_DEFAULT_SUBJECT</subject>
             <body>$PROJECT_DEFAULT_CONTENT</body>
             <recipientProviders>
               <hudson.plugins.emailext.plugins.recipients.ListRecipientProvider/>
             </recipientProviders>
-            <attachmentsPattern></attachmentsPattern>
+            <attachmentsPattern/>
             <attachBuildLog>false</attachBuildLog>
             <compressBuildLog>false</compressBuildLog>
             <replyTo>$PROJECT_DEFAULT_REPLYTO</replyTo>
@@ -76,7 +75,7 @@ wget -q -O chrome_mac_beta.dmg $URL</command>
       <contentType>default</contentType>
       <defaultSubject>$DEFAULT_SUBJECT</defaultSubject>
       <defaultContent>$DEFAULT_CONTENT</defaultContent>
-      <attachmentsPattern></attachmentsPattern>
+      <attachmentsPattern/>
       <presendScript>$DEFAULT_PRESEND_SCRIPT</presendScript>
       <attachBuildLog>false</attachBuildLog>
       <compressBuildLog>false</compressBuildLog>

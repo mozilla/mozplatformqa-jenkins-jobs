@@ -1,5 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<project>
+<?xml version="1.0" encoding="UTF-8"?><project>
   <actions/>
   <description>Delete pyc files from all workspaces</description>
   <logRotator class="hudson.tasks.LogRotator">
@@ -49,7 +48,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>find /Users/mozilla/jenkins/workspace -name &apos;*.pyc&apos; -print -delete</command>
+      <command>find /Users/mozilla/jenkins/workspace -name '*.pyc' -print -delete</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
